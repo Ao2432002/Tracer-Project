@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="tracer, attendance, absence, zagazig ">
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/instructor-profile.css')}}">
+    <title>Tracer</title>
+</head>
+<body>
+    <div class="container">
+        {% extends "nav-layout.html" %}
+        
+        {% block content  %}
+        <div class="info">
+            <div class="imgProfile">
+                <a href="{{url_for('instructor_image_profile')}}" class="img" id="showForm"> 
+                    {% if current_user.image_profile %}
+                    <img src="{{ url_for('static', filename='img/instructor-image-profile/' + current_user.image_profile) }}" alt="User Profile Image">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Default Profile Image">
+                    {% endif %}
+                    <i class='bx bxs-plus-circle'></i>
+                </a>
+                <h4 class="fullName">{{instructor.full_name }}</h4>
+            </div>
+            <div class="information">
+                <div class="collageInfo">
+                    <h4 class="fullNameInfo">{{instructor.full_name }}</h4>
+                    <p>University Code: {{ instructor.university_code }}</p>
+                    <p>National ID: {{ instructor.national_id }}</p>
+                    <p>Department: {{ instructor.department }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructor-content">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if 'success' in message %}
+                        <p style="color: green;">{{ message }}</p>
+                    {% else %}
+                        <p style="color: #FE5959;">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="instructor-tasks">
+                {% if not quizzes and not file_quizzes %}
+                <p>No quizzes have been added</p>
+                {% endif %}
+                {% if quizzes %}
+                {% for quiz in quizzes %}
+                <div class="task">
+                    <a href="{{url_for('update_quiz_instructor', id=quiz.id)}}" class="task-link">
+                        <p class="subject-name-quiz">{{ quiz.subject.subject_name }}</p>
+                        <p class="quiz-name">{{ quiz.quiz_name }}</p>
+                        <p class="quiz-date">{{ quiz.date_posted.strftime('%d - %m - %Y') }}</p>
+                    </a>
+                    {% if quiz.is_available == True %}
+                        <a href="{{url_for('quiz_closed',id=quiz.id)}}" class="disabled" style="background-color: #FE5959;" title="Close Quiz"><i class='bx bx-x'></i></a>
+                    {% else %}
+                        <a href="{{url_for('quiz_closed',id=quiz.id)}}" class="disabled" style="background-color: green;" title="Open Quiz"><i class='bx bx-power-off'></i></a>
+                    {% endif %}
+                    <a href="{{url_for('delete_quiz', id=quiz.id)}}" class="delete-quiz">Delete</a>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% if file_quizzes %}
+                {% for quiz in file_quizzes %}
+                <div class="task">
+                    <a href="{{url_for('update_quiz_file_instructor', id=quiz.id)}}" class="task-link">
+                        <p class="subject-name-quiz">{{ quiz.subject.subject_name }}</p>
+                        <p class="quiz-name">{{ quiz.quiz_name }}</p>
+                        <p class="quiz-date">{{ quiz.date_posted.strftime('%d - %m - %Y') }}</p>
+                    </a>
+                    {% if quiz.is_available == True %}
+                        <a href="{{url_for('quiz_file_closed',id=quiz.id)}}" class="disabled" style="background-color: #FE5959;" title="Close Quiz"><i class='bx bx-x'></i></a>
+                    {% else %}
+                        <a href="{{url_for('quiz_file_closed',id=quiz.id)}}" class="disabled" style="background-color: green;" title="Open Quiz"><i class='bx bx-power-off'></i></a>
+                    {% endif %}
+                    <a href="{{url_for('delete_quiz_file', id=quiz.id)}}" class="delete-quiz">Delete</a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+<!-- ------------------------------------ instructor Profile Js ------------------------------------ -->
+    <script src="{{url_for('static', filename='js/instructor-profile.js')}}"></script>
+</body>
+</html>
+{% endblock %}

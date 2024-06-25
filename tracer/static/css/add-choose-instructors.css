@@ -1,0 +1,137 @@
+:root {
+    --primary-color: #24184E;
+    --secondary-color: #009CD4;
+    --white-color: #fafafa;
+    --title-color: #282938;
+    --paragraph-color: #A3AED0;
+    --backgroundBtn-color: #D8D8D8;
+    --button-hover: #6E5BF9;
+    --danger-color: #FE5959;
+    --color: #F1F5F9;
+
+    --shadow-color: hsla(0, 0%, 9%, .05);
+
+    --transition-3: 0.3s;
+    --transition-4: 0.4s;
+    --transition-5: 0.5s;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Technor', sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--backgroundBtn-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--title-color);
+    border-radius: 10px;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    width: 100vw;
+    overflow-x: hidden;
+    background-image: url(../img/Dash-background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+/* -------------------------------------- Start Section ------------------------------------------------ */
+.home-section {
+    position: relative;
+    left: 70px;
+    display: flex;
+    width: calc(100% - 70px);
+    min-height: 100vh;
+    transition: all 0.5s ease;
+}
+
+.home-section .container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-section .container .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+}
+
+.box a {
+    height: 257px;
+    display: flex;
+    padding: 25px 30px;
+    text-decoration: none;
+    color: var(--title-color);
+    background: rgba(216, 216, 216, 0.25);
+    backdrop-filter: blur(2px);
+    border-radius: 10px;
+    transition: var(--transition-3);
+}
+
+.box a:hover {
+    transform: scale(1.1);
+}
+
+.box .choose {
+    font-size: 20px;
+    margin: auto;
+    font-weight: 400;
+    text-align: center;
+}
+
+@media(max-width:935px) {
+    .home-section .container {
+        margin-left: 20px;
+    }
+
+    .boxes {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media(max-width:565px) {
+    .box a {
+        max-width: 330px;
+        font-size: 14px;
+    }
+}
+
+@media(max-width:460px) {
+    .box a {
+        max-width: 300px;
+    }
+
+    .box .ac-year {
+        font-size: 16px;
+    }
+}
+
+/* -------------------------------------- End Section ------------------------------------------------ */

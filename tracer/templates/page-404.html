@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="website icon" href="img/Logo.png">
+    <title>Tracer</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        img{
+            width: 566px;
+            height: 566px;
+        }
+        @media screen and (max-width:767px) {
+            img{
+                width: 350px;
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="{{url_for('static', filename='img/Error.svg')}}" alt="Page 404">
+</body>
+<script>
+    // ------------------------------------ Title Change -------------------------------------- //
+let title = document.querySelector('title')
+setInterval(() => {
+    if (title.innerHTML !== 'Tracer') {
+        title.innerHTML = 'Tracer'
+    }else{
+        title.innerHTML = 'Error 404'
+    }
+}, 3000);
+</script>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin-dashboard-excuse-id.css')}}">
+    <title>Excuse</title>
+</head>
+<body>
+    <!-------------------------------------- Start SideBar -------------------------------------->
+    {% extends "dashboard-layout.html" %}
+    <!-------------------------------------- End SideBar -------------------------------------->
+
+    <!-------------------------------------- Start Section -------------------------------------->
+    {% block content %} 
+    <section class="home-section">
+        <label class="hamburger">
+            <input type="checkbox" class="menu">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+        <div class="container">
+            <div class="content">
+                {% if excuse.student %}
+                <div class="excuse">
+                    <div class="excuse-info">
+                        <div class="imgProfile">
+
+                        {% if excuse.student.image_profile %}
+                        <img src="{{ url_for('static', filename='img/student-image-profile/' + excuse.student.image_profile) }}" alt="User Profile Image">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='img/default-user.jpg') }}" alt="Default Profile Image">
+                        {% endif %}
+                            
+                        </div>
+                        <div class="right-side">
+                            <div class="name">
+                                <p class="fullName">{{ excuse.student.full_name }}</p>
+                                <div class="date-time">
+                                    <span class="date">{{ excuse.date_posted.strftime('%d - %m - %Y') }}</span>
+                                    <span class="time">{{ excuse.date_posted.strftime('%I:%M %p') }}</span>
+                                </div>
+                            </div>
+                            <p class="uni-code">Uni.code : <span>{{ excuse.student.university_code }}</span></p>
+                            <p class="acd-year">Ac. year : <span>{{ excuse.student.academic_year }}</span></p>
+                            <p class="section">Section : <span>{{ excuse.student.section_number }}</span></p>
+                        </div>
+                    </div>
+                    {% if current_user.role == 0 %}
+                        <a href="{{ url_for('student_profile') }}" class="go-to-profile">Go to Profile</a>
+                    {% elif current_user.role == 1 %}
+                        <a href="{{ url_for('instructor_profile') }}" class="go-to-profile">Go to Profile</a>
+                    {% endif %}
+                        <form action="" class="AddSubjectForm" method="post">
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if 'success' in message %}
+                                        <p style="color: green;">{{ message }}</p>
+                                    {% else %}
+                                        <p style="color: #FE5959;">{{ message }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    <div class="excuse-content">
+                        <div class="excuse-img">
+                        {% if excuse.excuse_photo %}
+                            <img src="{{ url_for('static', filename='img/excuse-photo/' + excuse.excuse_photo) }}" alt="Excuse Img">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='img/default-img.jpg') }}" alt="Default Excuse Img">
+                        {% endif %}
+                        <span class="hint">Open the image</span>
+                        </div>
+                        <p class="excuse-text" dir="rtl">
+                            {{ excuse.message }}
+                        </p>
+                    </div>
+                    <div class="btns">
+                        <a href="{{url_for('reject_excuse',id=excuse.id)}}" class="rejected">Reject</a>
+                        <a href="{{url_for('accept_excuse',id=excuse.id)}}" class="accept">Accept</a>
+                    </div>
+                </div>
+                {% elif excuse.instructor %}
+                <div class="excuse">
+                    <div class="excuse-info">
+                        <div class="imgProfile">
+                        {% if excuse.instructor.image_profile %}
+                        <img src="{{ url_for('static', filename='img/instructor-image-profile/' + excuse.instructor.image_profile) }}" alt="User Profile Image">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='img/default-user.jpg') }}" alt="Default Profile Image">
+                        {% endif %}
+                            
+                        </div>
+                        <div class="right-side">
+                            <div class="name">
+                                <p class="fullName">{{ excuse.instructor.full_name }}</p>
+                                <div class="date-time">
+                                    <span class="date">{{ excuse.date_posted.strftime('%d - %m - %Y') }}</span>
+                                    <span class="time">{{ excuse.date_posted.strftime('%I:%M %p') }}</span>
+                                </div>
+                            </div>
+                            <p class="uni-code">Uni.code : <span>{{ excuse.instructor.university_code }}</span></p>
+                            <p class="acd-year">Department : <span>{{ excuse.instructor.department }}</span></p>
+                        </div>
+                    </div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if 'success' in message %}
+                                    <p style="color: green;">{{ message }}</p>
+                                {% else %}
+                                    <p style="color: #FE5959;">{{ message }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="excuse-content">
+                        <div class="excuse-img">
+                        {% if excuse.excuse_photo %}
+                            <img src="{{ url_for('static', filename='img/excuse-photo/' + excuse.excuse_photo) }}" alt="Excuse Img">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='img/default-img.jpg') }}" alt="Default Excuse Img">
+                        {% endif %}
+                        <span class="hint">Open the image</span>
+                        </div>
+                        <p class="excuse-text" dir="rtl">
+                            {{ excuse.message }}
+                        </p>
+                    </div>
+                    <div class="btns">
+                        <a href="{{url_for('reject_excuse',id=excuse.id)}}" class="rejected">Reject</a>
+                        <a href="{{url_for('accept_excuse',id=excuse.id)}}" class="accept">Accept</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="show-excuse-img">
+                <div class="img-box">
+                    {% if excuse.excuse_photo %}
+                            <img class="Show-img" src="{{ url_for('static', filename='img/excuse-photo/' + excuse.excuse_photo) }}" alt="Excuse Img">
+                    {% else %}
+                            <img src="{{ url_for('static', filename='img/default-img.jpg') }}" alt="Default Excuse Img">
+                    {% endif %}
+                </div>
+                <i class='bx bx-x-circle close-img' title="Close The Img"></i>
+            </div>
+        </div>
+    </section>
+    <!-------------------------------------- End Section -------------------------------------->
+    <script src="{{url_for('static', filename='js/admin-dashboard-excuse-id.js')}}"></script>
+</body>
+</html>
+{% endblock %}

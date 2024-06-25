@@ -1,0 +1,293 @@
+/* Start Variables */
+:root {
+  --primary-color: #24184E;
+  --white-color: #ffffff;
+  --title-color: #282938;
+  --paragraph-color: #A3AED0;
+  --backgroundBtn-color: #D8D8D8;
+
+  --transition-3: 0.3s;
+}
+
+/* End Variables */
+
+/*Start Global Elements */
+body {
+  background-image: url(../img/Sign/eye.jpg);
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Technor", sans-serif;
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: #000;
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--backgroundBtn-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--title-color);
+  border-radius: 10px;
+}
+
+/*--------------------------------- Start Upload Img ---------------------------------*/
+.upload-title {
+  font-size: 32px;
+  color: var(--primary-color);
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0 100px;
+}
+
+.container .form-side {
+  align-self: center;
+  flex: 1;
+}
+
+.form-side .upload-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.form-side .upload-header p {
+  font-size: 16px;
+  font-weight: 200;
+  color: var(--paragraph-color);
+  margin: 0 auto;
+}
+
+.form-side .signup-form #uploadForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload {
+  margin-top: 30px;
+}
+
+.upload .imges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.upload .imges .img {
+  width: 224px;
+  height: 224px;
+  outline: none;
+  border: none;
+  background-color: #F1F5F9;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.upload .imges .img .lable {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.upload .imges .img .lable i {
+  margin-top: 2px;
+  font-size: 15px;
+}
+
+.upload .imges .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
+}
+
+.help-text {
+  text-align: center;
+  margin-top: 20px;
+  color: #ff0000;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+#uploadForm .go-to-profile {
+  height: 50px;
+  width: 140px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  border: 0;
+  border-radius: 5px;
+  transition: var(--transition-3);
+  cursor: pointer;
+  text-align: center;
+}
+
+#uploadForm .go-to-profile>i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: var(--transition-3);
+}
+
+#uploadForm .go-to-profile:hover {
+  opacity: .9;
+}
+
+#uploadForm .go-to-profile:hover i {
+  margin-left: 5px;
+}
+
+/*--------------------------------- End Upload Image ---------------------------------*/
+
+/*--------------------------------- Start Media ---------------------------------*/
+
+/* Mobile */
+@media (max-width:500px) {
+  body {
+    height: 100%;
+  }
+
+  .container {
+    display: block;
+    padding: 0 20px;
+  }
+
+  .container .form-side {
+    margin: 20px 0;
+  }
+
+  .upload-title {
+    font-size: 28px;
+  }
+
+  .form-side .upload-header {
+    margin-bottom: 30px;
+  }
+
+  .upload .imges {
+    gap: 20px;
+  }
+
+  .upload .imges .img {
+    width: 100%;
+    height: 300px;
+  }
+
+  .upload .imges .img img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .upload .imges .img .lable {
+    font-size: 15px;
+  }
+
+  .btns {
+    margin-top: 30px;
+  }
+
+  #uploadForm .go-to-profile {
+    width: 100%;
+  }
+}
+
+@media (min-width:501px) and (max-width:766px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .container .form-side {
+    margin: 20px 0;
+  }
+
+  .form-side .upload-header {
+    margin-bottom: 30px;
+  }
+
+  .upload .imges {
+    gap: 20px;
+  }
+}
+
+/* Tablet */
+@media (min-width:767px) and (max-width:991px) {
+  .container .form-side {
+    flex: 1;
+    margin: 20px 0;
+  }
+
+  .upload .imges .img {
+    width: 224px;
+    height: 224px;
+  }
+}
+
+/* Desktop */
+@media (min-width:767px) and (max-width:1200px) {
+  .container {
+    padding: 0 50px;
+  }
+}
+
+/* Huge & Larg Screen */
+@media (min-width:1200px) {
+  .upload .imges .img {
+    width: 270px;
+    height: 270px;
+  }
+
+  .upload .imges .img img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width:880px) {
+  body {
+    background-image: url("");
+  }
+}
+
+/*--------------------------------- End Media ---------------------------------*/
+
+/*--------------------------------- End Sign-Up ---------------------------------*/

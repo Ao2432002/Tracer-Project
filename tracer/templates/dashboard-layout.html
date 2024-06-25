@@ -1,0 +1,131 @@
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard-layout.css')}}">
+</head>
+<!-------------------------------------- Start SideBar -------------------------------------->
+<aside class="sidebar close">
+    <div class="logo-details">
+        <img src="{{url_for('static', filename='img/Logo.png')}}" alt="">
+        <span class="logo-name">Tracer</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a href="{{url_for('dashboard_home')}}">
+                <i class='bx bx-grid-alt'></i>
+                <span class="link-name">Dashboard</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="icon-link">
+                <a >
+                    <i class='bx bx-user'></i>
+                    <span class="link-name">Users</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link-name">Users</a></li>
+                <li class="menu-link"><a href="{{url_for('dashboard_user_instructors')}}">Instructor</a></li>
+                <li class="menu-link"><a href="{{url_for('dashboard_user_students')}}">Students</a></li>
+                <li class="menu-link"><a href="{{url_for('add_admin')}}">Admins</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{url_for('admin_dashboard_attendance_archives')}}">
+                <i class='bx bx-message-square-check'></i>
+                <span class="link-name">Attendance</span>
+            </a>
+            <ul class="sub-menu">
+                <li><a class="link-name">Attendance</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{url_for('dashboard_excuse')}}">
+                <i class='bx bx-bell'></i>
+                {# This is a comment now.<i class='bx bxs-bell-ring' Style="color:#FE5959"></i>#}
+                <span class="link-name">Excuse</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name">Excuse</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{url_for('dashboard_subject_grades')}}">
+                <i class='bx bx-spreadsheet'></i>
+                <span class="link-name">Grades</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name" >Grades</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{url_for('dashboard_add_subject')}}">
+                <i class='bx bx-book-add'></i>
+                <span class="link-name">Subject</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name" >Subject</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{url_for('departments')}}">
+                <i class='bx bx-shape-circle'></i>
+                <span class="link-name">Department</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name" >Department</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{url_for('sections')}}">
+                <i class='bx bx-group' ></i>
+                <span class="link-name">Section</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name" >Section</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{url_for('academic_year')}}">
+                <i class='bx bx-calendar' ></i>
+                <span class="link-name">Academic Year</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link-name" >Academic Year</a></li>
+            </ul>
+        </li>
+        <div class="profile-details">
+            <li>
+                <a href="{{url_for('admin_profile')}}" class="profile-content ">
+                    {% if current_user.image_profile %}
+                        <img src="{{ url_for('static', filename='img/admin-image-profile/' + current_user.image_profile) }}" alt="User Profile Image">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Default Profile Image">
+                    {% endif %}
+                    <span class="link-name profile-link">Profile</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link-name">Profile</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{{url_for('admin_logout')}}">
+                    <i class='bx bx-log-out-circle'></i>
+                    <span class="link-name">Log Out</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link-name">Log Out</a></li>
+                </ul>
+            </li>
+        </div>
+    </ul>
+</aside>
+
+
+
+{% block content  %}
+
+{% endblock %}
+<!-------------------------------------- End SideBar -------------------------------------->

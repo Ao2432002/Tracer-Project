@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/attend-info.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <!-- --------------------------------------- Start Personal data ------------------------------------ -->
+    <div class="container">
+        <a class="return-home" href="{{url_for('instructor_profile')}}"><i class='bx bx-chevron-left left previous'></i>Return Dashboard</a>
+        <div class="add-instructor">
+            <form action="" id="add-form" method="post">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if 'success' in message %}
+                            <p style="color: green;">{{ message }}</p>
+                        {% else %}
+                            <p style="color: #FE5959;">{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <div class="form-step">
+                    
+                    <div class="info-container">
+
+                        <div class="info">
+                            <label for="place">Place</label>
+                            <select id="place" name="place" onchange="filterBoxes()">
+                                {% for place in all_place %}
+                                <option value="{{ place.id }}">{{ place.place }}</option>
+                                {% endfor %}
+                            </select>
+                            
+                        </div>
+
+                        <div class="info">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" onchange="filterBoxes()">
+                                {% if current_user.subjects %}
+                                    {% for subject in current_user.subjects %}
+                                        <option value="{{ subject.subject_code }}">{{ subject.subject_name }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <div class="info">
+                            <label for="session-type">Session Type</label>
+                            <select id="session-type" name="session-type" onchange="filterBoxes()">
+                                <option value="lecture">Lecture</option>
+                                <option value="section">Section</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    
+                    <br>
+                    <div class="input-field">
+                        <button>Save</button>
+                    </div>
+                </div>
+                <!-- --------------------------------------- Start Personal data ------------------------------------ -->
+            </form>
+        </div>
+    </div>
+    <!-- ------------------------------------ Sign-up-student Js ------------------------------------ -->
+    <script src="{{url_for('static', filename='js/attend-info.js')}}"></script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin-dashboard-attendance-archives.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <!-------------------------------------- Start SideBar -------------------------------------->
+    {% extends "dashboard-layout.html" %}
+    <!-------------------------------------- End SideBar -------------------------------------->
+
+    <!-------------------------------------- Start Section -------------------------------------->
+    {% block content  %}
+    <section class="home-section">
+        <label class="hamburger">
+            <input type="checkbox" class="menu" id="hamburger-checkbox">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom"
+                    d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+                </path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+        <div class="container">
+            <div class="content">
+                <div class="top">
+                    <div class="search">
+                        <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" onkeyup="myFunction()"/>
+                        <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit"><i class="bx bx-search"></i></button>
+                    </div>
+                    <div class="buttons">
+                        <button id="delete" type="submit" name="delete" onclick="showConfirmation()">Delete All</button>
+                    </div>
+                </div>
+                <div class="bottom">
+
+                    <div class="filters">
+                        <div class="filter">
+                            <label for="subject">Subject</label>
+                            <select id="subject" onchange="filterBoxes()">
+                                <option value="all">All</option>
+                                {% for subject in subjects %}
+                                    <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <label for="session">Session</label>
+                            <select id="session" onchange="filterBoxes()">
+                                <option value="all">All</option>
+                                {% for session_num in session_nums %}
+                                    <option value="{{ session_num[0] }}">{{ session_num[0] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="filter">
+                            <label for="session-type">Session Type</label>
+                            <select id="session-type" onchange="filterBoxes()">
+                                <option value="all">All</option>
+                                <option value="lecture">Lecture</option>
+                                <option value="section">Section</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="search-result"></div>
+
+                    <div class="boxes" id="boxes">
+                        {% for session, attendees in sessions %}
+                            <div class="box">
+                                <a href="{{ url_for('admin_dashboard_attendance', session_id=session.id) }}">
+                                    <div class="info">
+                                        <div>
+                                            <h4 class="instructor">{{ session.instructor.full_name }}</h4>
+                                            <h4 class="number-of-attendees">count: {{ attendees }}</h4>
+                                        </div>
+                                        <h4 class="subject-name">Subject: <span>{{ session.subject.subject_name }}</span></h4>
+                                        <h4 class="session-type">Session Type: <span>{{ session.session_type }}</span></h4>
+                                        <hr>
+                                        <h4 class="session-num">Session Number: <span>{{ session.session_num }}</span></h4>
+                                        <h4 class="session-date">Date: <span>{{ session.date_posted.strftime('%Y-%m-%d (%I:%M:%S %p)') }}</span></h4>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="confirmation" id="confirmation">
+                        <div class="container-all-delete">
+                            <p>Are you sure to delete all user? This action cannot be undone.</p>
+                            <div class="btn-confirm-delete">
+                                <a id="delete-all-user" href="{{url_for('admin_delete_all_students')}}"><span class="delete-all">Delete All</span></a>
+                                <button id="cancel" type="submit" name="add" onclick="hideConfirmation()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-------------------------------------- End Section -------------------------------------->
+    <script src="{{url_for('static', filename='js/admin-dashboard-attendance-archives.js')}}"></script>
+    <script>
+        let title = document.querySelector('title')
+        setInterval(() => {
+            if (title.innerHTML !== 'Tracer') {
+                title.innerHTML = 'Tracer'
+            }else{
+                title.innerHTML = 'All students'
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/subject-choose-quiz.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="boxes">
+                <div class="box">
+                    <a href="{{ url_for('subject_quiz') }}">
+                        <div>
+                            <i class='bx bx-task'></i>
+                            <h4 class="subject-name">MCQ</h4>
+                        </div>
+                    </a>
+                    <a href="{{ url_for('subject_quiz_file') }}">
+                        <div>
+                            <!-- <i class='bx bxs-file-pdf'></i> -->
+                            <i class='bx bx-file'></i>
+                            <h4 class="subject-name">Files</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-------------------------------------- Java Script Code -------------------------------------->
+    <script>
+        let title = document.querySelector('title')
+        setInterval(() => {
+            if (title.innerHTML !== 'Tracer') {
+                title.innerHTML = 'Tracer'
+            } else {
+                title.innerHTML = 'Choose Quiz'
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

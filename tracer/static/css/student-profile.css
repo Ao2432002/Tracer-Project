@@ -1,0 +1,655 @@
+:root {
+  --primary-color: #24184E;
+  --secondary-color: #009CD4;
+  --white-color: #fafafa;
+  --title-color: #282938;
+  --paragraph-color: #A3AED0;
+  --backgroundBtn-color: #D8D8D8;
+  --button-hover: #40238B;
+  --danger-color: #FE5959;
+  --color: #F1F5F9;
+
+  --shadow-color: hsla(0, 0%, 9%, .05);
+
+  --transition-3: 0.3s;
+  --transition-4: 0.4s;
+  --transition-5: 0.5s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Technor", sans-serif;
+  box-sizing: border-box;
+  color: var(--primary-color);
+}
+
+body {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../img/profile-background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--title-color);
+}
+
+/* ---------------------------- Menu ---------------------------- */
+.menu {
+  position: fixed;
+}
+
+.burger {
+  z-index: 99999;
+  top: 40px;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0;
+  cursor: pointer;
+  background-color: #ffffff;
+  background-image: url("../img/icon/menu_line.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  display: none;
+}
+
+body.open .burger {
+  background-color: transparent;
+  background-image: url("../img/icon/close_line.svg");
+}
+
+.background {
+  position: fixed;
+  z-index: 9999;
+  top: 90px;
+  left: 44px;
+  aspect-ratio: 1/1;
+  translate: -50% -50%;
+  height: 88px;
+  background: rgb(0 0 0 / 0%);
+  border-radius: 50%;
+  transition: 0.6s;
+}
+
+body.open .background {
+  height: 300vmax;
+  background: rgb(0 0 0 / 80%);
+}
+
+body.open .menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu {
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.05s;
+}
+
+.menu nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 100px;
+}
+
+.menu a {
+  position: relative;
+  color: #f9f9f9;
+  font-size: 32px;
+  padding: 20px 0 20px 20px;
+  text-decoration: none;
+  opacity: 0;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+body .menu nav:hover>a {
+  opacity: 0.25;
+}
+
+body .menu nav>a:hover {
+  opacity: 1;
+  translate: 8px 0;
+}
+
+.menu a::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -26px;
+  translate: 0 -50%;
+  margin-top: 2px;
+  width: 10px;
+  height: 10px;
+  border-top: 3px solid #ffffff;
+  border-right: 3px solid #ffffff;
+  opacity: 0;
+  rotate: 45deg;
+  transition: 0.3s;
+}
+
+.menu a:hover::after {
+  opacity: 1;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    translate: -30px 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+body.open .menu a {
+  opacity: 1;
+  animation: appear 0.25s backwards;
+}
+
+/* ---------------------------- Start Students Profile ---------------------------- */
+.container {
+  padding: 60px;
+  padding-top: 90px;
+  height: 100vh;
+  width: 100%;
+}
+
+/* ---------------------------- Start Students Informations ---------------------------- */
+.container .large-screen{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  height: 60px;
+  padding: 0 30px;
+}
+
+.container .large-screen img{
+  width: 40px;
+}
+
+.container .large-screen .link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.container .large-screen .large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--primary-color);
+  font-weight: 400;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.container .large-screen .large:hover {
+  background: #f3f3f3;
+}
+
+.container .large-screen .large i{
+  font-size: 20px;
+}
+
+.info-box {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  overflow: auto;
+  background: #FFFFFF;
+  /* background: rgba(233, 233, 233, 0.8);
+  backdrop-filter: blur(2px); */
+  border-radius: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.imgProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgProfile .img {
+  position: relative;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #D9D9D9;
+  cursor: pointer;
+  display: block;
+  margin-right: 10px;
+}
+
+.imgProfile img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.imgProfile .img i {
+  position: absolute;
+  bottom: 0;
+  right: 2px;
+  color: var(--primary-color);
+  background-color: #F1F5F9;
+  border-radius: 50%;
+  z-index: 100;
+  font-size: 20px;
+}
+
+.information{
+  padding-left: 60px;
+}
+
+.fullName {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.fullNameInfo {
+  display: block;
+}
+
+.collageInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+
+.collageInfo p {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.collageInfo p span{
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/* ---------------------------- Start Grades ---------------------------- */
+.info-trade {
+  position: relative;
+  width: 100%;
+  height: 82%;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+  
+.box:nth-child(1) { grid-area: 1 / 1 / 4 / 4; width: 100%;}
+.box:nth-child(2) { grid-area: 1 / 4 / 4 / 9; }
+.box:nth-child(3) { grid-area: 4 / 5 / 7 / 9; }
+.box:nth-child(4) { grid-area: 4 / 1 / 7 / 5; }
+
+.info-trade .box:nth-child(2),
+.info-trade .box:nth-child(3),
+.info-trade .box:nth-child(4) {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 33px 27px;
+  overflow: auto;
+  background: #FFFFFF;
+  /* background: rgba(233, 233, 233, 0.8);
+  backdrop-filter: blur(2px); */
+  border-radius: 10px;
+}
+
+.box .data-notfound {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.box .subject {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+}
+
+.grades-container {
+  width: 100%;
+}
+
+.subject-grade {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 22px;
+  margin-top: 10px;
+}
+
+.box.grades .subject {
+  margin-bottom: 15px;
+}
+
+.subjectName {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.subject-grade p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.subject-grade span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/*---------------------------- Start Attendance ---------------------------- */
+.box .title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.subject-attendance {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.subject-attendance .type{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 22px;
+  margin-top: 10px;
+}
+
+.subject-attendance .type p{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.subject-attendance .type span{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.subject-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.box.attendance span {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* ---------------------------- Start Quiz ---------------------------- */
+.box.tasks {
+  margin-bottom: 20px;
+}
+
+.tasks-content{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+}
+
+.box-task {
+  height: 157px;
+  background-color: #f0f0f0;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.taskName {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.taskgrade {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.taskpdf{
+  font-size: 40px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+}
+
+.taskpdf > i ,
+.taskpdf > span{
+  color: #5E3BEE;
+}
+
+.subjectNameTask {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* .info-trade .ellipse{
+  position: absolute;
+  z-index: -1;
+}
+
+.ellipse.one{
+  bottom: 200px;
+  right: 900px;
+  z-index: -1;
+}
+
+.ellipse.two{
+  bottom: 200px;
+  right: 450px;
+  z-index: -1;
+}
+
+.ellipse.three{
+  top: 150px;
+  right: 900px;
+  z-index: -1;
+}
+
+.ellipse.four{
+  top: 150px;
+  right: 300px;
+  z-index: -1;
+} */
+
+.form-container {
+  display: none; /* Ensure the form is initially hidden */
+  /* Add additional styling as needed */
+}
+
+/* Optionally, you can add a class to show the form */
+.form-container.show {
+  display: block;
+}
+
+/* -------------------------------- Start Media ------------------------------- */
+@media (max-width:815px) {
+  .info-trade{
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .box{
+    margin-bottom: 20px;
+  }
+
+  .info-box {
+    height: fit-content;
+  }
+
+  .container .large-screen .link {
+    display: none;
+  }
+  
+  .container .large-screen .large {
+    display: none;
+  }
+
+  .burger {
+    display: grid;
+  }
+}
+
+
+/* @media (max-width:817px) {
+  .info {
+    height: 30%;
+  }
+
+  .info-trade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-trade .box {
+    height: 577px;
+  }
+
+  .info-trade .box.tasks {
+    grid-column: 1 / 3;
+  }
+
+  .taskgrade {
+    font-size: 42px;
+  }
+}
+
+@media (max-width:690px) {
+  .collageInfo {
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+  }
+
+  .information p {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width:560px) {
+  .menu nav {
+    padding-left: 80px;
+  }
+
+  .menu a {
+    font-size: 28px;
+  }
+
+  .menu a::after {
+    width: 8px;
+    height: 8px;
+  }
+
+  .box.grades {
+    grid-column: 1 / 3;
+  }
+
+  .box.attendance {
+    grid-column: 1 / 3;
+  }
+
+  .box.tasks {
+    grid-column: 1 / 3;
+  }
+}
+
+@media (max-width:430px) {
+  .menu nav {
+    padding-left: 20px;
+  }
+
+  .menu a {
+    font-size: 20px;
+  }
+
+  .menu a::after {
+    width: 6px;
+    height: 6px;
+  }
+
+  .imgProfile .img {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .info {
+    align-items: start;
+    height: 40%;
+  }
+
+  .fullName {
+    display: none;
+  }
+
+  .fullNameInfo {
+    display: block;
+    margin: 10px 20px;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .container .info a {
+    font-size: 13px;
+  }
+} */

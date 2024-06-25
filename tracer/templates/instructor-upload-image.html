@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="website icon" href="{{ url_for('static', filename='img/Logo.png') }}">
+        <!-------------------------------------- Font Family -------------------------------------->
+        <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+        <!-------------------------------------- Box Icon -------------------------------------->
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <!-------------------------------------- Style Css -------------------------------------->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/instructor-upload-image.css') }}">
+        <title>Upload Image</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-side">
+                <div class="upload-header">
+                    <h2 class="upload-title">Upload Image</h2>
+                    <p>Please choose three Images.</p>
+                </div>
+                <form id="uploadForm" method="POST" action="/instructor-upload-images" enctype=multipart/form-data>
+                    <div class="upload">
+                        <div class="imges">
+                            <div class="img one">
+                                <input type="file", name="photo_1", id="upload-img-one", hidden=True, accept="image/*">
+                                <p class="lable">Upload Image<i class='bx bx-chevron-up'></i></p>
+                                <img style="display: none;">
+                            </div>
+                        </div>
+                            <p class="help-text"></p>
+                        <div class="btns">
+                            <input class="go-to-profile" type="submit" value="Upload"></input>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- ------------------------------------ upload-image Js ------------------------------------ -->
+        <script src="{{ url_for('static', filename='js/upload-image.js') }}"></script>
+    </body>
+</html>

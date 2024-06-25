@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename=('css/quiz-instructor.css'))}}">
+    <title>New Quiz</title>
+</head>
+<body>
+    <div class="quiz-container">
+        
+        <form method="POST" id="add-question-form">
+            <div class="title-container">
+                <div class="title-timer">
+                    <h2 class="title">New Quiz</h2>
+                    <button class="timer" type="button"><i class='bx bx-timer'></i> Quiz Timer</button>
+                </div>
+                <input type="text" class="quiz-name" id="quiz-name" name="quizName" placeholder="Quiz Name" required>
+            </div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if 'success' in message %}
+                        <p style="color: green;">{{ message }}</p>
+                    {% else %}
+                        <p style="color: #FE5959;">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="flash"></div>
+            <div class="questions-container" id="questions-container">
+                <div class="question 1">
+                    <div class="new-question-container">
+                        <input type="text" class="new-question" id="new-question" name="newQuestion" placeholder="Question" required>
+                        <input type="text" class="point" id="point" name="Point_1" placeholder="Point" required>
+                    </div>
+                        
+                    <div class="content-option 1">
+                        <div class="options-container" id="options-container">
+                            <div class="option-wrapper" id="option-wrapper">
+                                <input type="text" class="new-option" id="new-option" name="newOption_1" placeholder="Option" required>
+                            </div>
+                        </div>
+                        <button type="button" id="add-option"><i class='bx bx-plus' ></i></button>
+                    </div>
+                    <label>Correct Answer:</label>
+                    <div class="correct-answer-container">
+                        <select id="correct-answer" name="correctAnswer_1" required>
+                            <option value="">Select Correct Answer</option>
+                        </select>
+                        <div class="icon">
+                            <i class='bx bx-chevron-down'></i>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="btn">
+                <button type="button" id="add-question">Add Question</button>
+                <button type="submit">Save Form</button>
+            </div>
+
+            <div class="timer-options hidden">
+                <div class="box-control">
+                    <div class="btns">
+                        <button class="close" type="button"><i class='bx bx-x'></i></button>
+                        <button class="up-down" type="button"><i class='bx bx-chevron-down'></i></button>
+                    </div>
+                    <p class="text"><i class='bx bx-timer'></i> QUIZ TIMER</p>
+                </div>
+                <div class="time-settings">
+                    <div class="instructions-container">
+                        <div class="instructions">
+                            <h4 class="instr-header">Timer instructions:</h4>
+                            <ul>
+                                <li>When only a start and end date is set, the quiz is opened for this period only</li>
+                                <li>When only a start date and time is set, the quiz is opened for all students. When this time passes, the quiz is closed</li>
+                                <li>When a start and end date and time are set, the quiz is opened for all students and each student is given this specific time individually.</li>
+                                <li>When nothing is specified, the quiz is opened and closed manually by the instructor</li>
+                            </ul>
+                        </div>
+                            <i class='bx bx-message-alt-error instruct' title="Instructions"></i>
+                        </div>
+                    <h5 class="option-label">Timer Settings</h5>
+                    <p class="option-title">Time Allowed</p>
+                    <div class="time" style="margin-bottom: 10px;">
+                        <input type="number" id="hours" name="hours" placeholder="hours" min="0" max="12">
+                        <span style="margin: 0 5px;">:</span>
+                        <input type="number" id="minutes" name="minutes" placeholder="minutes" step="1" min="1" max="60">
+                    </div>
+                    <div class="start-end-date" style="margin-bottom: 10px;">
+                        <h5 class="option-label">Start/End dates</h5>
+                        <div class="start-dates" style="margin-bottom: 10px;">
+                            <p class="option-title">Quiz opens at</p>
+                            <input type="datetime-local" id="start-date" name="start_date">
+                        </div>
+                        <div class="end-dates">
+                            <p class="option-title">Quiz closed at</p>
+                            <input type="datetime-local" id="end-date" name="end_date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+    <script src="{{url_for('static', filename=('js/quiz-instructor.js'))}}"></script>
+</body>
+</html>

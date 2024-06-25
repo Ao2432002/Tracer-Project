@@ -1,0 +1,248 @@
+/* Start Variables */
+:root {
+  --primary-color: #24184E;
+  --secondary-color: #009CD4;
+  --white-color: #fafafa;
+  --title-color: #282938;
+  --paragraph-color: #A3AED0;
+  --backgroundBtn-color: #D8D8D8;
+  --button-hover: #40238B;
+  --danger-color: #FE5959;
+  --color: #F1F5F9;
+
+  --shadow-color: hsla(0, 0%, 9%, .05);
+
+  --transition-3: 0.3s;
+  --transition-4: 0.4s;
+  --transition-5: 0.5s;
+}
+
+/* End Variables */
+
+/*Start Global Elements */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Technor", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../img/profile-background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+::selection {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--title-color);
+}
+
+/*End Global Elements */
+
+/*---------------------- Start Record the Attendance ------------------------ */
+.container {
+  padding: 60px;
+  padding-top: 90px;
+  height: 100%;
+  width: 100%;
+}
+
+.container .attendance{
+  width: 100%;
+}
+
+.header{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.header h4{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.return-home {
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  position: absolute;
+  bottom: calc(100% - 40px);
+  left: 20px;
+  z-index: 999;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.return-home:hover {
+  color: var(--button-hover);
+}
+
+.return-home i {
+  font-size: 20px;
+  transition: var(--transition-3);
+}
+
+.return-home:hover i {
+  transform: translateX(-3px);
+  color: var(--button-hover);
+}
+
+.std-attendance{
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.attendance-header,
+.absence-header{
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.content{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.box{
+  width: 100%;
+  height: fit-content;
+  background-color: var(--white-color);
+  display: flex;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.img{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #F1F4F8;
+}
+
+.img img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+.std-info{
+  margin-left: 15px;
+}
+
+.std-info p{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fullname,
+.detail{
+  font-size: 14px;
+  font-weight: 500;
+}
+  
+.detail > span{
+  font-size: 14px;
+  font-weight: 300;
+}
+
+hr{
+  margin-top: 20px;
+}
+
+.absence-header{
+  margin: 20px 0 10px 0;
+}
+
+.std-info{
+  width: 100%;
+}
+
+.add-std{
+  display: block;
+  text-decoration: none;
+  margin-top: 5px;
+  padding: 12px 70px;
+  width: 100%;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--white-color);
+  background-color: var(--button-hover);
+  transition: var(--transition-3);
+  cursor: pointer;
+}
+
+.add-std:hover{
+  background-color: var(--primary-color);
+}
+
+.delete-std{
+  display: block;
+  text-decoration: none;
+  margin-top: 5px;
+  padding: 12px 70px;
+  width: 100%;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+  transition: var(--transition-3);
+  cursor: pointer;
+}
+
+.delete-std:hover{
+  color: var(--white-color);
+  background-color: var(--danger-color);
+}
+
+/*-------------------------- End Student Record -------------------------*/
+@media (max-width:730px) {
+  .header{
+    flex-direction: column;
+  }
+
+  .content{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+  }
+}

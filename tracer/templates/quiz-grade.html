@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/quiz-grade.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="quiz-info">
+            {% if quiz %}
+            <h2 class="quiz-name">{{ quiz.quiz_name }}</h2>
+            <h2 class="quiz-subject">{{ quiz.subject.subject_name }}</h2>
+            <h2 class="quiz-response">Responses({{ graded_students|count }})</h2>
+            <h2 class="non-response">Non-responses({{ ungraded_students|count }})</h2>
+    
+            {% else %}
+                <h2 class="quiz-name">Quiz Name</h2>
+                <h2 class="quiz-subject">Quiz Subject</h2>
+                <h2 class="quiz-response">Quiz Subject</h2>
+            {% endif %}
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'success' in message %}
+                    <p style="color: green; margin-bottom: 20px;">{{ message }}</p>
+                {% else %}
+                    <p style="color: #FE5959; margin-bottom: 20px;">{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Section</th>
+                        <th>Degree</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if graded_students %}
+                        {% for student in graded_students %}
+                            <tr>
+                                <td>{{ student.full_name }}</td>
+                                <td>{{ student.section_number }}</td>
+                                <td>
+                                    {% for grade in grades %}
+                                        {% if grade.student_id == student.university_code %}
+                                            {{ grade.grade }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    {% if ungraded_students %}
+                        {% for student in ungraded_students %}
+                            <tr class="ungraded-student">
+                                <td>{{ student.full_name }}</td>
+                                <td>{{ student.section_number }}</td>
+                                <td>No Response</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        <div class="bottom">
+            <a href="{{url_for('delete_quiz_response', id=quiz.id)}}" class="delete-responses">Delete responses</a>
+        </div>
+    </div>
+</body>
+
+<!-------------------------------------- Java Script Code -------------------------------------->
+    <script>
+        let title = document.querySelector('title')
+        setInterval(() => {
+            if (title.innerHTML !== 'Tracer') {
+                title.innerHTML = 'Tracer'
+            } else {
+                title.innerHTML = 'Quiz Grades'
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="tracer, attendance, absence, zagazig ">
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Include cropper.js library -->
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
+    
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/image-profile.css')}}">
+    <title>Tracer</title>
+</head>
+<body>
+    <div class="container">
+        {% extends "nav-layout.html" %}
+        
+        {% block content  %}
+        <div class="form-container">
+            <div class="role" hidden>{{current_user.role}}</div>
+            <div class="unicode" hidden>{{current_user.university_code}}</div>
+            <form id="profileForm" method="POST" enctype="multipart/form-data" action="{% if current_user.role == 0 %}/student-image-profile{% elif current_user.role == 1 %}/instructor-image-profile {% elif current_user.role == 2 %}/admin/image-profile {% endif %}">
+                <h2>Crop your new profile picture</h2>
+                {% if current_user.role == 0 %}
+                <img id="output" alt="User Profile Image" src="{% if current_user.image_profile %}{{ url_for('static', filename='img/student-image-profile/' + current_user.image_profile) }}{% else %}{{ url_for('static', filename='img/profile-img.jpg') }}{% endif %}" hidden>
+                {% else %}
+                <img id="output" alt="User Profile Image" src="{% if current_user.image_profile %}{{ url_for('static', filename='img/instructor-image-profile/' + current_user.image_profile) }}{% else %}{{ url_for('static', filename='img/profile-img.jpg') }}{% endif %}" hidden>
+                {% endif %}
+                <div id="croppie-container"></div>
+                <input type="file" id="uploadButton" name="file" accept="image/*" style="display: none;">
+                <div class="buttons">
+                    <label for="uploadButton" class="choose">Upload profile picture</label>
+                    <input type="submit" value="Set new profile picture" class="crop">
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+    
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+<script src="{{url_for('static', filename='js/image-profile.js')}}"></script>
+</body>
+</html>
+
+{% endblock %}

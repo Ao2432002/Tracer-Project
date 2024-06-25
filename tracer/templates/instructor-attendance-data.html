@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="tracer, attendance, absence, zagazig ">
+  <link rel="website icon" href="img/Logo.png">
+  <!-------------------------------------- Font Family -------------------------------------->
+  <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+  <!-------------------------------------- Box Icon -------------------------------------->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-------------------------------------- Style Css -------------------------------------->
+  <link rel="stylesheet" href="css/instructor-attendance-data.css">
+  <title>Instructor Attendance</title>
+</head>
+<body>
+  <div class="container">
+    <form action="" class="instructor-attendance">
+        <h4 class="attendance-info-title">Add the attendance data</h4>
+      <div class="inbut-box">
+        <div class="dropdown">
+          <div class="dropdown-capture">Department (القسم)</div>
+          <div class="select">
+            <div class="selected">General</div>
+            <div class="caret"><i class='bx bx-chevron-down'></i></div>
+          </div>
+          <div class="menu">
+            <label class="option"><input type="radio" name="department" value="general" hidden>General</label>
+            <label class="option"><input type="radio" name="department" value="is" hidden>IS</label>
+            <label class="option"><input type="radio" name="department" value="it" hidden>IT</label>
+            <label class="option"><input type="radio" name="department" value="cs" hidden>CS</label>
+            <label class="option"><input type="radio" name="department" value="ds" hidden>DS</label>
+            <label class="option"><input type="radio" name="department" value="ai" hidden>AI</label>
+            <label class="option"><input type="radio" name="department" value="medical" hidden>Medical</label>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <div class="dropdown-capture">Year (السنة الدراسية)</div>
+          <div class="select">
+            <div class="selected">First</div>
+            <div class="caret"><i class='bx bx-chevron-down'></i></div>
+          </div>
+          <div class="menu">
+            <label class="option"><input type="radio" name="year" value="first" hidden>First</label>
+            <label class="option"><input type="radio" name="year" value="second" hidden>Second</label>
+            <label class="option"><input type="radio" name="year" value="third" hidden>Third</label>
+            <label class="option"><input type="radio" name="year" value="fourth" hidden>Fourth</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="inbut-box">
+        <div class="dropdown">
+          <div class="dropdown-capture">Subject (المادة)</div>
+          <div class="select">
+            <div class="selected">Subject1</div>
+            <div class="caret"><i class='bx bx-chevron-down'></i></div>
+          </div>
+          <div class="menu">
+            <label class="option"><input type="radio" name="subject" value="subject1" hidden>Subject1</label>
+            <label class="option"><input type="radio" name="subject" value="subject2" hidden>Subject2</label>
+            <label class="option"><input type="radio" name="subject" value="subject3" hidden>Subject3</label>
+            <label class="option"><input type="radio" name="subject" value="subject4" hidden>Subject4</label>
+            <label class="option"><input type="radio" name="subject" value="subject5" hidden>Subject5</label>
+            <label class="option"><input type="radio" name="subject" value="subject6" hidden>Subject6</label>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <div class="dropdown-capture">Session (الفترة)</div>
+          <div class="select">
+            <div class="selected">الاولي</div>
+            <div class="caret"><i class='bx bx-chevron-down'></i></div>
+          </div>
+          <div class="menu">
+            <label class="option"><input type="radio" name="session" value="الاولي" hidden>الاولي</label>
+            <label class="option"><input type="radio" name="session" value="الثانية" hidden>الثانية</label>
+            <label class="option"><input type="radio" name="session" value="الثالثة" hidden>الثالثة</label>
+            <label class="option"><input type="radio" name="session" value="الرابعة" hidden>الرابعة</label>
+            <label class="option"><input type="radio" name="session" value="الخامسة" hidden>الخامسة</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="inbut-box">
+        <div class="dropdown">
+          <div class="dropdown-capture">Session Type (نوع الفترة)</div>
+          <div class="select">
+            <div class="selected">Lecture</div>
+            <div class="caret"><i class='bx bx-chevron-down'></i></div>
+          </div>
+          <div class="menu">
+            <label class="option"><input type="radio" name="session-type" value="lecture" hidden>Lecture</label>
+            <label class="option"><input type="radio" name="session-type" value="section" hidden>Section</label>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="js/instructor-attendance-data.js"></script>
+</body>
+</html>

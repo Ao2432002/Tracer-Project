@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename=('css/quiz-instructor.css'))}}">
+    <title>New Quiz</title>
+</head>
+<body>
+    <div class="quiz-container">
+        <form method="POST" id="add-question-form" enctype="multipart/form-data">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if 'success' in message %}
+                        <p style="color: green;">{{ message }}</p>
+                    {% else %}
+                        <p style="color: #FE5959;">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="title-container">
+                <div class="title-timer">
+                    <h2 class="title">{{quiz.quiz_name}}</h2>
+                </div>
+                {% if quiz.description %}
+                    <div class="description">{{quiz.description}}</div>
+                {% endif %}
+                <a href="{{url_for('download_quiz_file', id=quiz.id)}}" class="download-quiz-file">Download quiz</a>
+            </div>
+            <div class="flash"></div>
+            <div class="questions-container" id="questions-container">
+                <div class="question 1">
+                    <div class="quiz-file-container">
+                        <input type="file" class="quiz-file " id="quiz-file" name="response_file" required>
+                    </div>
+                </div>
+            </div>
+            <div class="btn">
+                <button type="submit">Submit</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        // ------------------------------------ Title Change -------------------------------------- //
+        let title = document.querySelector('title')
+        setInterval(() => {
+            if (title.innerHTML !== 'Tracer') {
+                title.innerHTML = 'Tracer'
+            }else{
+                title.innerHTML = 'Quiz'
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin-dashboard-excuse.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <!-------------------------------------- Start SideBar -------------------------------------->
+    {% extends "dashboard-layout.html" %}
+    <!-------------------------------------- End SideBar -------------------------------------->
+    
+    <!-------------------------------------- Start Section -------------------------------------->
+    {% block content  %}
+    <section class="home-section">
+        <label class="hamburger">
+            <input type="checkbox" class="menu" id="hamburger-checkbox">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom"
+                    d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+                </path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+        <div class="container">
+            <div class="content">
+                <div class="top">
+                    <div class="search">
+                        <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" />
+                        <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit"><i class="bx bx-search"></i></button>
+                    </div>
+                    <div class="buttons">
+                        <button id="delete" type="submit" name="delete" onclick="showConfirmation()">Delete All</button>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="search-result"></div>
+                    <div class="boxes">
+                    {% for excuse in excuses %}
+                        <div class="box">
+                            {% if excuse.student %}
+                            {% if excuse.is_acceptable is none %}
+                                <div class="status no-response">No response</div>
+                            {% elif excuse.is_acceptable %}
+                                <div class="status acceptable">Acceptable</div>
+                            {% else %}
+                                <div class="status rejected">Rejected</div>
+                            {% endif %}
+                            <a href="{{ url_for('excuse_details', excuse_id=excuse.id) }}">
+                                <div class="user-image-container">
+                                    {% if excuse.student.image_profile %}
+                                    <img class="user-image" src="{{ url_for('static', filename='img/student-image-profile/' + excuse.student.image_profile) }}" alt="User Profile Image">
+                                    {% else %}
+                                    <img class="user-image" src="{{ url_for('static', filename='img/default-user.jpg') }}" alt="Default Profile Image">
+                                    {% endif %}
+                                </div>
+                                <div class="info">
+                                    <h4 style="color: #FE5959;">Student: <span style="color: #24184E;">{{ excuse.student.full_name }}</span></h4>
+                                    <h4>Uni.code: <span>{{ excuse.student.university_code }}</span></h4>
+                                    <h4>Ac.year: <span>{{ excuse.student.academic_year }}</span></h4>
+                                    <h4>Date: <span>{{ excuse.date_posted.strftime('%d - %m - %Y (%I:%M %p)') }}</span></h4>
+                                </div>
+                            </a>
+                            <div class="button" style="justify-content: end;">
+                                <a id="delete-user" href="{{ url_for('delete_excuse', excuse_id=excuse.id) }}">Delete</a>
+                            </div>
+                            {% elif excuse.instructor %}
+                            {% if excuse.is_acceptable is none %}
+                                <div class="status no-response">No response</div>
+                            {% elif excuse.is_acceptable %}
+                                <div class="status acceptable">Acceptable</div>
+                            {% else %}
+                                <div class="status rejected">Rejected</div>
+                            {% endif %}
+                            <a href="{{ url_for('excuse_details', excuse_id=excuse.id) }}">
+                                <div class="user-image-container">
+                                    {% if excuse.instructor.image_profile %}
+                                    <img class="user-image" src="{{ url_for('static', filename='img/instructor-image-profile/' + excuse.instructor.image_profile) }}" alt="User Profile Image">
+                                    {% else %}
+                                    <img src="{{ url_for('static', filename='img/default-user.jpg') }}" alt="Default Profile Image">
+                                    {% endif %}
+                                </div>
+                                <div class="info">
+                                    <h4 style="color: #FE5959;">Instructor: <span style="color: #24184E;">{{ excuse.instructor.full_name }}</span></h4>
+                                    <h4>Uni.code: <span>{{ excuse.instructor.university_code }}</span></h4>
+                                    <h4>Department: <span>{{ excuse.instructor.department }}</span></h4>
+                                    <h4>Date: <span>{{ excuse.date_posted.strftime('%d - %m - %Y (%I:%M %p)') }}</span></h4>
+                                </div>
+                            </a>
+                            <div class="button" style="justify-content: end;">
+                                <a id="delete-user" href="{{ url_for('delete_excuse', excuse_id=excuse.id) }}">Delete</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if not excuses %}
+                    <p style="position: absolute;">No excuses Found.</p>
+                    {% endif %}
+                    
+                    <div class="confirmation" id="confirmation">
+                        <div class="container-all-delete">
+                            <p>Are you sure to delete all excuses? This action cannot be undone.</p>
+                            <div class="btn-confirm-delete">
+                                <a id="delete-all-user" href="{{url_for('admin_delete_all_excuse')}}"><span class="delete-all">Delete All</span></a>
+                                <button id="cancel" type="submit" name="add" onclick="hideConfirmation()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-------------------------------------- End Section -------------------------------------->
+    <!-- ------------------------------------ Title Change --------------------------------------  -->
+    <script src="{{url_for('static', filename='js/admin-dashboard-excuse.js')}}"></script>
+</body>
+
+</html>
+{% endblock %}

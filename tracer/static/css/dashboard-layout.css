@@ -1,0 +1,336 @@
+/* -------------------------------------- Start SideBar ------------------------------------------------ */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 260px;
+    background-color: var(--white-color);
+    z-index: 100;
+    transition: all 0.5s ease;
+}
+
+.sidebar.close {
+    width: 78px;
+}
+
+.sidebar .logo-details {
+    height: 60px;
+    margin-left: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .logo-details img {
+    width: 47.57px;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.sidebar .logo-details .logo-name {
+    font-size: 30px;
+    color: var(--title-color);
+    font-weight: 600;
+    padding-left: 12px;
+    transition: 0.3s ease;
+    transition-delay: 0.1;
+}
+
+.sidebar.close .logo-details .logo-name {
+    transition-delay: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sidebar .nav-links {
+    height: 100%;
+    padding: 30px 0 150px 0;
+    overflow: auto;
+}
+
+.sidebar.close .nav-links {
+    overflow: visible;
+}
+
+.sidebar .nav-links::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar .nav-links li {
+    position: relative;
+    list-style: none;
+    transition: all 0.4s ease;
+}
+
+.sidebar .nav-links li:hover {
+    background: var(--primary-color);
+}
+
+.sidebar .nav-links li:hover a span,
+.sidebar .nav-links li:hover a i,
+.sidebar .nav-links li:hover i {
+    color: var(--white-color);
+}
+
+.sidebar .nav-links li .icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar.close .nav-links li .icon-link {
+    display: block;
+}
+
+.sidebar .nav-links li i {
+    height: 50px;
+    min-width: 78px;
+    text-align: center;
+    line-height: 50px;
+    color: #282938;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-links li.showMenu i.arrow {
+    transform: rotate(-180deg);
+}
+
+.sidebar.close .nav-links i.arrow {
+    display: none;
+}
+
+.sidebar .nav-links li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.sidebar .nav-links li a .link-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--title-color);
+}
+
+.sidebar.close .nav-links li a .link-name {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sidebar .nav-links li .sub-menu {
+    padding: 6px 6px 14px 80px;
+    background: var(--white-color);
+    backdrop-filter: blur(2px);
+    display: none;
+}
+
+.sidebar.close .nav-links li .sub-menu {
+    padding: 6px 6px 14px 80px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+    display: none;
+}
+
+.sidebar .nav-links li.showMenu .sub-menu {
+    display: block;
+}
+
+.sidebar .nav-links .menu-link:hover {
+    background: transparent;
+}
+
+.sidebar .nav-links li .sub-menu a {
+    color: var(--title-color);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 0;
+    white-space: nowrap;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-links li .sub-menu a:hover {
+    opacity: 1;
+}
+
+.sidebar.close .nav-links li .sub-menu {
+    position: absolute;
+    left: 100%;
+    top: -10px;
+    margin-top: 0;
+    padding: 10px 20px;
+    border-radius: 0 6px 6px 0;
+    transition: all 0.4s ease;
+    opacity: 0;
+    display: block;
+    pointer-events: none;
+}
+
+.sidebar.close .nav-links li:hover .sub-menu {
+    top: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar .nav-links li .sub-menu .link-name {
+    display: none;
+}
+
+.sidebar .nav-links li .sub-menu li:hover {
+    background: transparent;
+}
+
+.sidebar.close .nav-links li .sub-menu .link-name {
+    display: none;
+}
+
+.sidebar.close .nav-links li .sub-menu .link-name {
+    font-size: 18px;
+    opacity: 1;
+    display: block;
+}
+
+.sidebar .nav-links li .sub-menu.blank {
+    opacity: 1;
+    pointer-events: auto;
+    padding: 3px 20px 6px 16px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sidebar .nav-links li:hover .sub-menu.blank {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sidebar .profile-details {
+    position: fixed;
+    bottom: 0px;
+    width: 260px;
+    background-color: var(--white-color);
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+
+.sidebar.close .profile-details {
+    width: 78px;
+    display: block;
+    transition: all 0.4s ease;
+}
+
+.sidebar .profile-details .profile-content {
+    display: flex;
+    align-items: center;
+    padding: 7px 0;
+}
+
+.profile-details .profile-content .profile-link {
+    margin: 0 10px;
+}
+
+.sidebar .profile-details img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 14px 0 19px;
+    background: var(--color);
+}
+
+.sidebar .profile-details li:nth-child(1):hover {
+    background: transparent;
+}
+
+.sidebar .profile-details li:hover a span {
+    color: var(--title-color);
+}
+
+.sidebar .profile-details li:nth-child(2):hover {
+    background: var(--danger-color);
+}
+
+.sidebar .profile-details li:nth-child(2):hover .link-name {
+    color: var(--white-color);
+}
+
+.sidebar.close .profile-details li:nth-child(2):hover .link-name {
+    color: var(--title-color);
+}
+
+.hamburger {
+    cursor: pointer;
+    position: fixed;
+    left: 78px;
+    z-index: 200;
+}
+
+.hamburger input {
+    display: none;
+}
+
+.hamburger svg {
+    height: 2em;
+    margin: 13px 15px;
+    transition: all 0.5s ease;
+}
+
+.line {
+    fill: none;
+    stroke: var(--title-color);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2.5;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line-top-bottom {
+    stroke-dasharray: 12 63;
+}
+
+.hamburger input:checked+svg {
+    transform: translateX(calc(260px - 78px)) rotate(-45deg);
+}
+
+.hamburger input.hamburger-active+svg {
+    transform: translateX(-24px) rotate(-45deg);
+}
+
+.hamburger input:checked+svg .line-top-bottom {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: -32.42;
+}
+
+/* -------------------------------------- Media ------------------------------------------------ */
+@media(max-width:460px) {
+    .sidebar {
+        transition: all 0.5s ease;
+    }
+
+    .sidebar.close {
+        transform: translateX(-260px);
+        transition: all 0.5s ease;
+    }
+
+    .hamburger {
+        left: 0;
+    }
+
+    .hamburger input:checked+svg {
+        transform: translateX(260px) rotate(-45deg);
+    }
+
+    .sidebar.close~.home-section {
+        left: 0px;
+        width: calc(100% - 0px);
+    }
+
+    .home-section .container {
+        padding: 0 0 0 20px;
+    }
+}
+
+/* -------------------------------------- End SideBar ------------------------------------------------ */

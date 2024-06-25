@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/update-student-info.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <div class="container">
+        <a class="return-home" href="{{url_for('dashboard_user_students')}}"><i class='bx bx-chevron-left left previous'></i>Return Dashboard</a>
+        <div class="add-instructor">
+            <form action="" id="add-form" method="post">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if 'success' in message %}
+                            <p style="color: green;">{{ message }}</p>
+                        {% else %}
+                            <p style="color: #FE5959;">{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <div class="form-step">
+                    <div class="input-field">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="www www www www" value="{{student.full_name}}">
+                    </div>
+                    <div class="input-field">
+                        <label for="Uncode">University code</label>
+                        <input type="text" id="Uncode" name="Uncode" placeholder="Enter 14 Number" value="{{student.university_code}}">
+                    </div>
+                    <div class="input-field">
+                        <label for="ID">National ID</label>
+                        <input type="text" id="ID" name="ID" placeholder="Enter 14 Number" value="{{student.national_id}}">
+                    </div>
+
+                    <div class="input-select">
+                        <label for="acd-year">Academic year</label>
+                        <select name="acd-year" id="acd-year">
+                        {% for year in all_years %}
+                            {% if student.academic_year and student.academic_year == year.academic_year %}
+                                <option value="{{ year.academic_year }}" selected>{{ year.academic_year }}</option>
+                            {% else %}
+                                <option value="{{ year.academic_year }}">{{ year.academic_year }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    </div>
+
+                    <div class="input-select">
+                        <label for="sec-number">Section number</label>
+                        <select name="sec-number" id="sec-number">
+                            {% for section in sections %}
+                                {% if student.section_number and student.section_number == section.section_number %}
+                                    <option value="{{ section.section_number }}" selected>{{ section.section_number }}</option>
+                                {% else %}
+                                    <option value="{{ section.section_number }}">{{ section.section_number }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <br>
+                    <div class="input-field">
+                        <button type="submit">Update Information</button>
+                    </div>
+                </div>
+                <!-- --------------------------------------- Start Personal data ------------------------------------ -->
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <script src="{{url_for('static', filename='js/update-student-info.js')}}"></script>
+</body>
+
+</html>

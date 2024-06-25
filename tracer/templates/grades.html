@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/grades.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <div class="container">
+        {% extends "nav-layout.html" %}
+        
+        {% block content  %}
+
+        <form method="post">
+            <h2>{{ subject.subject_name }}</h2>
+            {% if subject %}
+            <div class="header">
+                <div class="filters">
+                    <div class="filter">
+                        <label for="sections">Section</label>
+                        <select id="sections" onchange="filterBoxes()">
+                            <option value="all">All</option>
+                            {% if students_sections %}
+                                {% for section in students_sections %}
+                                    <option value="{{section}}">{{section}}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                {% if students %}
+                    <div class="button">
+                        <a href="{{ url_for('export_grades_csv', subject_code=subject.subject_code) }}" class="export-grade"> <i class='bx bx-export'></i>Export File</a>
+                    </div>
+                {% endif %}
+            </div>
+        
+            {% else %}
+                <h2>Subject Name</h2>
+            {% endif %}
+    
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="color: #24184E;">Full Name</th>
+                            <th>Section</th>
+                            <th>Oral</th>
+                            <th>Practical</th>
+                            <th>Midterm</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        {% if students %}
+                            {% for student in students %}
+                            <tr class="tr">
+                                <td>{{ student.full_name }}</td>
+                                <td class="section-filter">{{ student.section_number }}</td>
+                                {% if subject_grades %}
+                                    {% set subject_grade = subject_grades[student.university_code] %}
+                                    <td><input type="text" class="grade" name="oral" value="{{ subject_grade.oral_grade if subject_grade else '' }}"></td>
+                                    <td><input type="text" class="grade" name="practical" value="{{ subject_grade.practical_grade if subject_grade else '' }}"></td>
+                                    <td><input type="text" class="grade" name="midterm" value="{{ subject_grade.midterm_grade if subject_grade else '' }}"></td>
+                                {% else %}
+                                    <td><input type="text" class="grade" name="oral" value=""></td>
+                                    <td><input type="text" class="grade" name="practical" value=""></td>
+                                    <td><input type="text" class="grade" name="midterm" value=""></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4"><h4>There are no students for this subject</h4></td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                    {% if students %}
+                        <tfoot>
+                            <td colspan="5"><input type="submit" class="submit" value="Submit"></td>
+                        </tfoot>
+                    {% endif %}
+                </table>
+            </div>
+            
+        </form>
+    </div>
+
+
+    <!-------------------------------------- Java Script Code -------------------------------------->
+    <script src="{{url_for('static', filename='js/grades.js')}}"></script>
+</body>
+
+</html>
+{% endblock %}

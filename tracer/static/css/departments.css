@@ -1,0 +1,285 @@
+:root {
+    --primary-color: #24184E;
+    --secondary-color: #009CD4;
+    --white-color: #fafafa;
+    --title-color: #282938;
+    --paragraph-color: #A3AED0;
+    --backgroundBtn-color: #D8D8D8;
+    --button-hover: #40238B;
+    --danger-color: #FE5959;
+    --color: #F1F5F9;
+
+    --shadow-color: hsla(0, 0%, 9%, .05);
+
+    --transition-3: 0.3s;
+    --transition-4: 0.4s;
+    --transition-5: 0.5s;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Technor', sans-serif;
+}
+
+::selection {
+    background-color: var(--primary-color);
+    color: var(--color);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--title-color);
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    width: 100vw;
+    overflow-x: hidden;
+    background-image: url(../img/Dash-background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+/* -------------------------------------- Start Section ------------------------------------------------ */
+.home-section {
+    position: relative;
+    left: 70px;
+    display: flex;
+    width: calc(100% - 70px);
+    transition: all 0.5s ease;
+    min-height: 100vh;
+}
+
+.home-section .container {
+    width: 100vw;
+    margin-top: 8px;
+    padding: 0 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.home-section .container .content {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home-section .container .search #searchQueryInput {
+    width: 100%;
+    height: 44px;
+    background: var(--white-color);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 56px 0 24px;
+    font-size: 16px;
+}
+
+.home-section .container .search #searchQuerySubmit {
+    width: 56px;
+    height: 44px;
+    margin-left: -56px;
+    background: var(--primary-color);
+    border: none;
+    outline: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    color: var(--white-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-result {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 24px;
+    display: none;
+}
+
+.home-section .bottom {
+    width: 100%;
+    margin: 0 auto;
+}
+
+form {
+    width: 100%;
+}
+
+.add-department {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.department-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.department.keyword,
+.department.name {
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.department {
+    width: 49%;
+    height: 50px;
+    padding: 0 14px;
+    border-radius: 5px;
+    border: 0;
+    background-color: var(--white-color);
+    outline: none;
+}
+
+#add-department {
+    width: 100%;
+    height: 50px;
+    background-color: var(--primary-color);
+    border: 0;
+    border-radius: 5px;
+    color: var(--white-color);
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: var(--transition-4);
+    margin: 25px 0;
+}
+
+#add-department:hover {
+    background-color: var(--button-hover);
+}
+
+.department-box {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 0;
+    gap: 20px;
+    /* border-bottom: 1px solid var(--primary-color); */
+}
+
+.department-keyword,
+.department-name,
+.delete-btn {
+    width: 100%;
+    height: fit-content;
+    background: rgba(216, 216, 216, 0.3);
+    backdrop-filter: blur(2px);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    word-wrap: break-word;
+}
+
+.department-keyword {
+    max-width: 30%;
+    padding: 20px 23px;
+}
+
+.department-name {
+    max-width: 70%;
+    padding: 20px 23px;
+}
+
+.department-keyword p,
+.department-name p {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--title-color);
+    width: 100%;
+}
+
+.delete-btn {
+    max-width: 55px;
+    padding: 17px;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-4);
+}
+
+.delete-btn i {
+    color: var(--title-color);
+    transition: var(--transition-4);
+    font-size: 28px;
+}
+
+.delete-btn:hover {
+    background-color: var(--danger-color);
+}
+
+.delete-btn:hover i {
+    color: var(--white-color);
+}
+
+@media(max-width:767px) {
+    .department-box {
+        flex-direction: column;
+        border-bottom: 1px solid var(--primary-color);
+    }
+
+    .department-keyword{
+        max-width: 100% ;
+    }
+
+    .department-name {
+        max-width: 100%;
+    }
+
+    .delete-btn {
+        min-width: 100%;
+    }
+
+    .bottom .department-box .delete-btn {
+        width: calc(100% - 80%);
+    }
+
+    .department-keyword p,
+    .department-name p {
+        text-align: center;
+    }
+
+    .department-data{
+        flex-direction: column;
+    }
+
+    .department.keyword,
+    .department.name{
+        width: 100%;
+    }
+}
+
+@media(max-width:460px) {
+    .home-section .container .content {
+        width: 80%;
+    }
+
+}
+
+/* -------------------------------------- End Section ------------------------------------------------ */

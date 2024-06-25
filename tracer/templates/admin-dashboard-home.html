@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin-dashboard-home.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Tracer</title>
+</head>
+
+<body>
+{% extends "dashboard-layout.html" %}
+
+{% block content  %} 
+    <!-------------------------------------- Start Section -------------------------------------->
+    <section class="home-section">
+        <label class="hamburger">
+            <input type="checkbox" class="menu" id="hamburger-checkbox">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom"
+                    d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+                </path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+        <div class="container">
+            <div class="content">
+                <ul hidden>
+                    {% for year, count in students_count_per_year.items() %}
+                    <p class="year">{{ year }}</p>
+                    <p class="count">{{ count }} </p>
+                    {% endfor %}
+                </ul>
+
+                {% for year, sections in students_count_per_section_per_year.items() %}
+                    <h3 hidden>Academic Year: {{ year }}</h3>
+                    <ul hidden class="section-data" data-year="{{ year }}">
+                        {% for section, count in sections.items() %}
+                            <li>
+                                <span class="section">{{ section }}</span>
+                                <span class="section-count">{{ count }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+                <div class="boxes">
+
+                    <!-- ------------------------------------ Number of All Students -------------------------------- -->
+                <div class="box all-students">
+                    <div class="header">
+                        <p class="text">Count of students</p>
+                    </div>
+                    <div class="body">
+                        <div class="progress-circle">
+                            <div class="progress-number" data-count="{{students_count}}"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------ Number of All Instructors -------------------------------- -->
+                <div class="box all-instructors">
+                    <div class="header">
+                        <p class="text">Count of instructors</p>
+                    </div>
+                    <div class="body">
+                        <div class="progress-circle">
+                            <div class="progress-number" data-count="{{instructor_count}}"></div>
+                        </div>
+                    </div>
+                </div>
+<!-- ------------------------------------ Bar Chart For Students Count -------------------------------- -->
+                <div class="box">
+                    <div class="header">
+                        <p class="text">Number of students for the acad year</p>
+                    </div>
+                    <div class="body">
+                        <canvas id="students-count" ></canvas>
+                    </div>
+                </div>
+                
+<!-- ------------------------------------ Pie Chart For Students Ratio -------------------------------- -->
+                <div class="box">
+                    <div class="header">
+                        <p class="text"> students ratio for each acad  year</p>
+                    </div>
+                    <div class="body">
+                        <canvas id="students-ratio" class="box"></canvas>
+                    </div>
+                </div>
+
+<!-- ------------------------------------ Bar Chart For Students Sections For Each Academic Year -------------------------------- -->
+                {#{% for year, sections in students_count_per_section_per_year.items() %}
+                    <div class="box">
+                        <div class="header">
+                            <p class="text"> Number of students for each section for year <strong>{{year}}</strong></p>
+                        </div>
+                        <div class="body">
+                            <canvas id="students-section-count-{{ year }}" class="box"></canvas>
+                        </div>
+                    </div>
+                {% endfor %}#}
+
+            </div> 
+            </div>
+        </div>
+    </section>
+<!-------------------------------------- End Section -------------------------------------->
+    <script src="{{url_for('static', filename='js/dashboard-home.js')}}"></script>
+</body>
+
+</html>
+{% endblock %}

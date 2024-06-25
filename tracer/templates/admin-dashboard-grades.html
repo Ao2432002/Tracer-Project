@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin-dashboard-grades.css')}}">
+    <title>Tracer</title>
+</head>
+<body>
+    <!-------------------------------------- Start SideBar -------------------------------------->
+    {% extends "dashboard-layout.html" %}
+    <!-------------------------------------- End SideBar -------------------------------------->
+
+    <!-------------------------------------- Start Section -------------------------------------->
+    {% block content  %} 
+    <section class="home-section">
+        <!-- Subject Registration Form -->
+        <label class="hamburger">
+            <input type="checkbox" class="menu">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+        <div class="container">
+            <div class="content">
+                <div class="bottom">
+                    {% if subject %}
+                        <h2>{{ subject.subject_name }}</h2>
+                    {% else %}
+                        <h2>Subject Name</h2>
+                    {% endif %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Oral</th>
+                                <th>Practical</th>
+                                <th>Midterm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if subject_students %}
+                                {% for student in subject_students %}
+                                    <tr>
+                                        <td>{{ student.full_name }}</td>
+                                        <td><p class="grade">{{ subject_grades[student.university_code].oral_grade if subject_grades[student.university_code] else "" }}</p></td>
+                                        <td><p class="grade">{{ subject_grades[student.university_code].practical_grade if subject_grades[student.university_code] else "" }}</p></td>
+                                        <td><p class="grade">{{ subject_grades[student.university_code].midterm_grade if subject_grades[student.university_code] else "" }}</p></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-------------------------------------- End Section -------------------------------------->
+    <script src="{{url_for('static', filename='js/admin-dashboard-subjects.js')}}"></script>
+</body>
+</html>
+{% endblock %}

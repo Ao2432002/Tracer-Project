@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracer</title>
+<!------------------------------------ BoxIcon ------------------------------------------------>
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+<!------------------------------------ Font Family ------------------------------------------------>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<!------------------------------------ Style Css ------------------------------------------------>
+    <link rel="icon" href="{{ url_for('static', filename='img/Logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student-quiz.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form action="" class="StudentTaskForm" method="post">
+<!------------------------------------ IF Instructor -------------------------------------------------------->
+            <div class="header">
+                {% if quiz %}
+                    <p class="StudentTaskTitle">{{ quiz.quiz_name }}</p>
+                    <p class="StudentTaskParagraph">{{ quiz.subject.subject_name }}</p>
+                {% endif %}
+            </div>
+
+<!------------------------------------ Questions -------------------------------------------------------->
+            {% if quiz %}
+                {% if questions %}
+                    {% for question in questions %}
+                        <div class="question-container">
+                            <div class="question">
+                                <span class="question-number">{{ loop.index }}.</span>
+                                <span class="question-name">{{ question.question_text }}</span>
+                            </div>
+                            {% if question_answers[question.id] %}
+                                {% set parent_index = loop.index %}
+                                <div class="answers-container">
+                                    {% for answer in question_answers[question.id] %}
+                                        <div class="answer">
+                                            <input type="radio" name="q{{ parent_index }}-answer" id="q{{ parent_index }}-answer{{ loop.index }}" value="{{ answer.answer_text }}" required>
+                                            <label for="q{{ parent_index }}-answer{{ loop.index }}">{{ answer.answer_text }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+            
+<!------------------------------------ Submit Button -------------------------------------------------------->
+            <div class="Submit-btn">
+                    <button type="button" class="nextBtn next-step Submit">
+                        Submit
+                        <i class='bx bx-chevron-right next'></i>
+                    </button>
+            </div>
+
+<!------------------------------------ Confirm Box -------------------------------------------------------->
+            <div class="center">
+                <p>Are you sure ?</p>
+                <div class="btns">
+                    <button type="button" class="nextBtn next-step Cancel ">
+                        <i class='bx bx-chevron-left'></i>
+                        <span>Cancel</span>
+                    </button>
+                    <button type="submit" class="nextBtn next-step Confirm ">
+                        <span>Confirm</span>
+                        <i class='bx bx-chevron-right next'></i>
+                    </button>
+                </div>
+            </div>
+    </div>
+    {% if quiz.end_date %}
+        <p hidden class="end_date">{{quiz.end_date}}</p>
+    {% endif %}
+    <!-- Main Js -->
+    <script src="{{ url_for('static', filename='Js/student-quiz.js') }}"></script>
+</body>
+</html>

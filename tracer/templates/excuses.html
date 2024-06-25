@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/excuses.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    
+    <!-------------------------------------- Start Section -------------------------------------->
+    <section class="home-section">
+        <div class="container excuses">
+            {% extends "nav-layout.html" %}
+            
+            {% block content  %}
+            
+            <div class="content">
+                <div class="bottom">
+                    <div class="search-result"></div>
+                    <div class="boxes">
+                    {% for excuse in excuses %}
+                        <div class="box">
+                            {% if excuse.student %}
+                                {% if excuse.is_acceptable is none %}
+                                    <div class="status no-response">No response</div>
+                                {% elif excuse.is_acceptable %}
+                                    <div class="status acceptable">Acceptable</div>
+                                {% else %}
+                                    <div class="status rejected">Rejected</div>
+                            {% endif %}
+                        
+                            <a>
+                                <div class="info">
+                                    <h4>Date: <span>{{ excuse.date_posted.strftime('%d - %m - %Y (%I:%M %p)') }}</span></h4>
+                                    <p class="excuse-text">{{excuse.message}}</p>
+                                </div>
+                            </a>
+                            {% elif excuse.instructor %}
+                                {% if excuse.is_acceptable is none %}
+                                    <div class="status no-response">No response</div>
+                                {% elif excuse.is_acceptable %}
+                                    <div class="status acceptable">Acceptable</div>
+                                {% else %}
+                                    <div class="status rejected">Rejected</div>
+                                {% endif %}
+                                <a>
+                                    <div class="info">
+                                        <h4>Date: <span>{{ excuse.date_posted.strftime('%d - %m - %Y (%I:%M %p)') }}</span></h4>
+                                        <p class="excuse-text">{{excuse.message}}</p>
+                                    </div>
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% if not excuse %}
+                                <p>No excuses available.</p>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </section>
+    <!-------------------------------------- End Section -------------------------------------->
+    <!-- ------------------------------------ Title Change --------------------------------------  -->
+    <script>
+        let title = document.querySelector('title')
+        setInterval(() => {
+            if (title.innerHTML !== 'Tracer') {
+                title.innerHTML = 'Tracer'
+            }else{
+                title.innerHTML = 'Excuses'
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>
+{% endblock %}

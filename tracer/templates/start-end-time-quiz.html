@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="tracer, attendance, absence, zagazig ">
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/quiz-start-end.css')}}">
+    <title>Tracer</title>
+</head>
+<body>
+
+    <div class="container">
+        {% if quiz.start_date and time_now <= quiz.start_date %}
+            <p>This quiz will open at {{ quiz.start_date.strftime('%Y-%m-%d') }} ({{ quiz.start_date.strftime('%I:%M %p') }})</p>
+            <a href="{{ url_for('student_profile') }}">Go to profile <i class='bx bx-chevron-right'></i></a>
+        {% elif quiz.end_date and time_now >= quiz.end_date %}
+            <p>This quiz is closed at {{ quiz.end_date.strftime('%Y-%m-%d') }} ({{ quiz.end_date.strftime('%I:%M %p') }})</p>
+            <a href="{{ url_for('student_profile') }}">Go to profile <i class='bx bx-chevron-right'></i></a>
+        {% elif quiz.start_date and time_now >= quiz.start_date %}
+            {% if quiz.duration %}
+                <p>The quiz is now ready. Start the quiz. You have <strong>{{quiz.duration}}</strong> minutes</p>
+                <a href="{{ url_for('view_quiz_timer_student', id=quiz.id) }}">Start<i class='bx bx-chevron-right'></i></a>
+            {% else %}
+                <p>The quiz is now ready. Start the quiz</p>
+                <a href="{{ url_for('view_quiz_student', id=quiz.id) }}">Start<i class='bx bx-chevron-right'></i></a>
+            {% endif %}
+        {% endif %}
+    </div>
+    
+    
+
+<!-- ------------------------------------ instructor Profile Js ------------------------------------ -->
+</body>
+</html>

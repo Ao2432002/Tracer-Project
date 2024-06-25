@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+  <!-------------------------------------- Font Family -------------------------------------->
+  <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+  <!-------------------------------------- Box Icon -------------------------------------->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-------------------------------------- Style Css -------------------------------------->
+  <link rel="stylesheet" href="{{url_for('static', filename='css/record-attendance.css')}}">
+  <title>Record the attendance</title>
+</head>
+<body>
+  <div class="container">
+    <div class="attendance">
+      <div class="camera-video">
+        <div class="video">
+          <div class="record">
+            <div class="loader">
+              <div class="cell d-0"></div>
+              {#<div class="cell d-1"></div>
+              <div class="cell d-2"></div>
+            
+              <div class="cell d-1"></div>
+              <div class="cell d-2"></div>
+              
+              
+              <div class="cell d-2"></div>
+              <div class="cell d-3"></div>
+              
+              
+              <div class="cell d-3"></div>
+              <div class="cell d-4"></div>#}
+              
+              
+            </div>
+          </div>
+          <div class="camera-btns">
+            <form action="{{ url_for('start_camera', id=camera.id, subject_code=subject_code, session_type=session_type, session_id=session_id) }}" method="post">
+              <button id="start" type="submit">Start Attendance</button>
+            </form>
+            <form action="{{ url_for('stop_camera', id=camera.id, subject_code=subject_code, session_type=session_type) }}" method="post">
+                <button type="submit">Save Attendance</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="container-attend">
+        <div class="attend-title">
+          <h2>Attendance</h2>
+          <h4 class="count"></h4>
+        </div>
+        <div class="std-attendance" id="student-attendance-list">
+          <!-- سيتم تحديث هذه المنطقة بجلسة الحضور -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sessionId = "{{ session_id }}";
+        const subjectCode = "{{ subject_code }}";
+        const sessionType = "{{ session_type }}";
+        let previousStudents = new Set(); // To track previously added students
+    
+        function fetchAttendance() {
+            fetch(`{{ url_for('get_attendance', session_id=session_id, subject_code=subject_code, session_type=session_type) }}`)
+                .then(response => response.json())
+                .then(data => {
+                    const studentList = document.getElementById('student-attendance-list');
+                    const newStudents = new Set(); // To track newly fetched students
+                    studentList.innerHTML = '';  // Clear current content
+    
+                    data.forEach(student => {
+                        const studentBox = document.createElement('div');
+                        studentBox.classList.add('student', 'box');
+                        studentBox.id = 'student-' + student.university_code;
+                        const profileImage = student.image_profile ? `img/student-image-profile/${student.image_profile}` : 'img/default-user.jpg';
+                        studentBox.innerHTML += `
+                            <div class="std-img-profile">
+                                <div class="img">
+                                    <img class="user-image" src="{{ url_for('static', filename='') }}${profileImage}" alt="User Profile Image">
+                                </div>
+                            </div>
+                            <div class="std-info">
+                                <p class="fullname">${student.full_name}</p>
+                                <p class="uncode detail">Uni.code : <span>${student.university_code}</span></p>
+                                <p class="ac-year detail">Ac.year : <span>${student.academic_year}</span></p>
+                                <p class="section-number detail">Section : <span>${student.section_number}</span></p>
+                                <p class="subject detail">Subject : <span>${student.subject_name}</span></p>
+                                <p class="session detail">Session : <span>${student.session_type}</span></p>
+                            </div>
+                        `;
+                        studentList.appendChild(studentBox);
+                        newStudents.add(student.university_code);
+                        let countStudent = document.querySelectorAll('.student.box').length
+                        let count = document.querySelector('.count')
+                        count.innerHTML= `Count of attendees <span>( ${countStudent} )</span>`
+                    });
+    
+                    // Check for new students and play sound if there are any
+                    newStudents.forEach(studentCode => {
+                        if (!previousStudents.has(studentCode)) {
+                            playSound();
+                        }
+                    });
+    
+                    // Update previousStudents to the current set of students
+                    previousStudents = newStudents;
+                })
+                .catch(error => console.error('Error fetching attendance data:', error));
+        }
+    
+        function playSound() {
+            const audio = new Audio('{{ url_for('static', filename='audio/bell.mp3') }}');
+            audio.play();
+        }
+    
+        setInterval(fetchAttendance, 1000);
+        fetchAttendance();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+:root {
+    --primary-color: #24184E;
+    --secondary-color: #009CD4;
+    --white-color: #fafafa;
+    --title-color: #282938;
+    --paragraph-color: #A3AED0;
+    --backgroundBtn-color: #D8D8D8;
+    --button-hover: #40238B;
+    --danger-color: #FE5959;
+    --color: #F1F5F9;
+
+    --shadow-color: hsla(0, 0%, 9%, .05);
+
+    --transition-3: 0.3s;
+    --transition-4: 0.4s;
+    --transition-5: 0.5s;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Technor', sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    padding: 30px;
+    background-image: url(../img/Dash-background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+::selection {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--title-color);
+}
+
+/* -------------------------------------- Start Content ------------------------------------------------ */
+.container {
+    padding-bottom: 40px;
+}
+
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.return-home {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.return-home:hover {
+    color: var(--button-hover);
+}
+
+.return-home i {
+    font-size: 20px;
+    transition: var(--transition-3);
+}
+
+.return-home:hover i {
+    transform: translateX(-3px);
+    color: var(--button-hover);
+}
+
+h2 {
+    margin: 40px auto 30px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+form div {
+    position: relative;
+}
+
+form div i {
+    position: absolute;
+    font-size: 26px;
+    font-weight: 500;
+    left: 25px;
+    top: 13px;
+    color: var(--white-color);
+    font-size: 20px;
+}
+
+.file {
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+.file::file-selector-button {
+    padding-right: 20px;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    transition: var(--transition-3);
+    cursor: pointer;
+}
+
+.file::file-selector-button:hover {
+    background-color: var(--button-hover);
+}
+
+
+.sub {
+    padding: 15px 50px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    transition: var(--transition-3);
+    cursor: pointer;
+}
+
+.sub:hover {
+    background-color: var(--button-hover);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 20px 10px;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+th {
+    color: var(--primary-color);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.grade {
+    max-width: 80px;
+    font-size: 18px;
+}
+
+@media(max-width:620px) {
+
+    th,
+    tr {
+        font-size: 14px;
+    }
+
+    form {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .sub {
+        margin-top: 20px;
+    }
+
+    .sub:hover {
+        background-color: var(--button-hover);
+    }
+}
+
+@media(max-width:460px) {
+    .home-section .container .content {
+        width: 80%;
+    }
+}

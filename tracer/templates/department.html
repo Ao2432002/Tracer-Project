@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/departments.css')}}">
+    <title>Tracer</title>
+</head>
+<body>
+    <!-------------------------------------- Start SideBar -------------------------------------->
+    {% extends "dashboard-layout.html" %}
+    <!-------------------------------------- End SideBar -------------------------------------->
+
+    <!-------------------------------------- Start Section -------------------------------------->
+    {% block content  %} 
+    <section class="home-section">
+        <!-- Subject Registration Form -->
+        <label class="hamburger">
+            <input type="checkbox" class="menu">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+        <div class="container">
+            <div class="content">
+                <div class="bottom">
+                    <form action="" class="department-management" method="post">
+                        <div class="add-department">
+                            <div class="department-data">
+                                <input type="text" name="department_keyword" class="department keyword" placeholder="Keyword (IS)">
+                                <input type="text" name="department_name" class="department name" placeholder="Name (Information System)">
+                            </div>
+                            <button type="submit" id="add-department">Add Department</button>
+                        </div>
+                    </form>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'success' in message %}
+                                <p style="color: green;">{{ message }}</p>
+                            {% else %}
+                                <p style="color: #FE5959;">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <div class="search-result"></div>
+                    {% if departments %}
+                    {% for department in departments %}
+                    <div class="department-box">
+                        <div class="department-keyword">
+                            <p>{{department.department_keyword}}</p>
+                        </div>
+                        <div class="department-name">
+                            <p>{{department.department_name}}</p>
+                        </div>
+                        <a href="{{url_for('delete_department', id=department.id)}}" class="delete-btn"> <i class='bx bx-x'></i> </a> 
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                        <p class="data-notfound">There are no department added</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-------------------------------------- End Section -------------------------------------->
+
+    <script>
+        // -------------------------------------- Show List Of Link In The SideBar -------------------------------------- //
+        let arrow = document.querySelectorAll(".arrow");
+        for (let i = 0; i < arrow.length; i++) {
+            arrow[i].addEventListener("click", (e) => {
+                  let arrowParent = e.target.parentElement.parentElement;
+                  arrowParent.classList.toggle("showMenu");
+            });
+        }
+
+        // -------------------------------------- SideBar Open & Close -------------------------------------- //
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".menu");
+        sidebarBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+        });
+
+        // -------------------------------------- Change Title -------------------------------------- //
+        let title = document.querySelector('title')
+            setInterval(() => {
+                if (title.innerHTML !== 'Tracer') {
+                    title.innerHTML = 'Tracer'
+                }else{
+                    title.innerHTML = 'Department'
+                }
+            }, 3000);
+    </script>
+</body>
+</html>
+{% endblock %}

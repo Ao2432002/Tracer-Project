@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-------------------------------------- BoxIcon -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/write-excuse.css')}}">
+    <title>Write Excuse</title>
+</head>
+<body>
+<!-- --------------------------------------- Start Personal data ------------------------------------ -->
+<!-- -------------------------------------- Start Upload Img --------------------------------- -->
+    <div class="container">
+        {% extends "nav-layout.html" %}
+
+        {% block content  %}
+        <form action="/request-excuse" method="POST" class="excuse-form" enctype="multipart/form-data">
+            <div class="input-box">
+                <div class="form-step-two">
+                    <div class="upload">
+                        <div class="imges">
+                            <div class="img one">
+                                <input type="file" name="excuse_photo" id="upload-img-one" hidden accept="image/*">
+                                <p class="lable">Upload Image<i class='bx bx-chevron-up'></i></p>
+                                <img style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <textarea name="message" id="" placeholder="Write Excuse" required></textarea>
+            </div>
+            <button class="send">Send</button>
+        </form>
+    </div>
+    <script src="{{url_for('static', filename='js/write-excuse.js')}}"></script>
+    <script type="text/javascript">
+        const toggleMenu = () => document.body.classList.toggle("open");
+    </script>
+</body>
+
+</html>
+{% endblock %}

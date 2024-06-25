@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/add-more-instructors.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="return-home" href="{{url_for('dashboard_user_instructors')}}"><i class='bx bx-chevron-left left previous'></i>Return Dashboard</a>
+        </div>
+        <h2>Adding more instructor</h2>
+        <span class="note">Note: Download the file, enter data into it, and upload it again. <a href="{{url_for('download_instructors_csv')}}" class="sub-download" style="text-decoration: none;">Download File</a></span>
+        <form action="/admin/more/instructor" method="POST" enctype="multipart/form-data">
+            <div>
+                <i class='bx bx-up-arrow-alt'></i>
+                <input type="file" class="file" name="file" accept=".csv">
+            </div>
+            <input type="submit" class="sub" value="Upload File">
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'success' in message %}
+                    <p style="color: green;">{{ message }}</p>
+                {% else %}
+                    <p style="color: #FE5959;">{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>University Code</th>
+                    <th>National ID</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for instructor in instructors %}
+                <tr>
+                    <td>{{ instructor.full_name }}</td>
+                    <td>{{ instructor.university_code }}</td>
+                    <td>{{ instructor.national_id }}</td>
+                    <td>{{ instructor.department }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-------------------------------------- Java Script Code -------------------------------------->
+    <script>
+        let title = document.querySelector('title')
+        setInterval(() => {
+            if (title.innerHTML !== 'Tracer') {
+                title.innerHTML = 'Tracer'
+            } else {
+                title.innerHTML = 'Grades'
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+:root {
+    --primary-color: #24184E;
+    --secondary-color: #009CD4;
+    --white-color: #ffffff;
+    --title-color: #282938;
+    --paragraph-color: #A3AED0;
+    --backgroundBtn-color: #cfcfcf;
+    --button-hover: #40238B;
+    --danger-color: #FE5959;
+    --color: #F1F5F9;
+
+    --shadow-color: hsla(0, 0%, 9%, .05);
+
+    --transition-3: 0.3s;
+    --transition-4: 0.4s;
+    --transition-5: 0.5s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Technor", sans-serif;
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--title-color);
+}
+
+::placeholder {
+    color: var(--backgroundBtn-color);
+} 
+
+body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../img/profile-background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+
+/* --------------------- Start Students Task ---------------------------- */
+
+.container {
+    padding: 60px;
+    padding-top: 90px;
+    height: 100vh;
+    width: 100%;
+}
+
+.excuse-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    border-radius: 10px;
+    background: #ffffff;
+    padding: 25px 30px;
+    margin-top: 20px;
+}
+
+.input-box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-step-two {
+    display: flex;
+    margin-right: 20px;
+}
+
+.img {
+    width: 224px;
+    height: 224px;
+    border: 10px;
+    background-color: #EDEEFF;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.img img {
+    width: 224px;
+    height: 224px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.img.one{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lable {
+    font-size: 14px;
+    font-weight: 500;
+    color: #24184E;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lable i {
+    font-size: 18px;
+}
+
+textarea {
+    height: 224px;
+    width: 100%;
+    border: 1px solid #D9D9D9;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    resize: none;
+    font-size: 16px;
+}
+
+.send {
+    width: 100%;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: 1px solid var(--backgroundBtn-color);
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: var(--transition-3);
+}
+
+.send:hover {
+    background-color: var(--button-hover);
+}
+
+/*--------------------------------- Start Media ---------------------------------*/
+@media(max-width:530px) {
+    .input-box{
+        flex-direction: column;
+    }
+
+    .form-step-two {
+        display: flex;
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    .upload{
+        width: 100%;
+    }
+    .img{
+        width: 100%;
+    }
+
+    textarea {
+        height: 224px;
+    }
+}

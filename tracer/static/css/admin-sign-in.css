@@ -1,0 +1,188 @@
+:root {
+    --primary-color: #24184E;
+    --secondary-color: #009CD4;
+    --white-color: #ffffff;
+    --title-color: #282938;
+    --paragraph-color: #A3AED0;
+    --backgroundBtn-color: #cfcfcf;
+    --button-hover: #40238B;
+    --danger-color: #FE5959;
+    --color: #F1F5F9;
+
+    --shadow-color: hsla(0, 0%, 9%, .05);
+
+    --transition-3: 0.3s;
+    --transition-4: 0.4s;
+    --transition-5: 0.5s;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Technor', sans-serif;
+}
+
+::selection {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--title-color);
+}
+
+::placeholder {
+    color: var(--paragraph-color);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+body {
+    background-image: url(../img/Dash-background.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*--------------------------------- Start Sign-In ---------------------------------*/
+.container {
+    width: 600px;
+    height: fit-content;
+    padding: 0 15px;
+}
+
+.admin-sign-in-form .info {
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.admin-sign-in-form .info img {
+    width: 58px;
+    height: auto;
+}
+
+.admin-sign-in-form .info .sign-in-title {
+    font-size: 32px;
+    font-weight: 400;
+    margin: 5px 0;
+    color: var(--primary-color);
+}
+
+.admin-sign-in-form .info .sign-in-label {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--paragraph-color);
+}
+
+.signLabel {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--title-color);
+}
+
+.signInputField {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    background: none;
+    transition: all var(--transition-3) ease;
+}
+
+.signInput {
+    flex: 5;
+    border: 1px solid var(--backgroundBtn-color);
+    height: 50px;
+    background: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--title-color);
+    padding: 0 20px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.signInput::placeholder {
+    color: var(--paragraph-color);
+}
+
+.signInputFieldContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    fill: #a5a5b0;
+    opacity: 0.5;
+}
+
+.signInputFieldContainer .eye {
+    position: absolute;
+    animation: keyframes-fill .5s;
+}
+
+.signInputFieldContainer .eye-slash {
+    position: absolute;
+    animation: keyframes-fill .5s;
+    display: none;
+}
+
+.signInputFieldContainer input:checked~.eye {
+    display: none;
+}
+
+.signInputFieldContainer input:checked~.eye-slash {
+    display: block;
+}
+
+.signInputFieldContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+@keyframes keyframes-fill {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.content .admin-sign-in-submit {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px !important;
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: var(--transition-3);
+}
+
+.content .admin-sign-in-submit:hover {
+    background-color: var(--button-hover);
+}
+
+/*--------------------------------- Responsive ---------------------------------*/
+
+/*--------------------------------- End Sign-In ---------------------------------*/

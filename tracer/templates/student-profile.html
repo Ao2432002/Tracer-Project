@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="tracer, attendance, absence, zagazig ">
+    <link rel="website icon" href="{{ url_for('static', filename='img/Logo.png') }}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student-profile.css') }}">
+    <title>Profile</title>
+</head>
+<body>
+    
+
+    <div class="container">
+        {% extends "nav-layout.html" %}
+        
+        {% block content  %}
+
+        <div class="info-trade">
+            
+
+            <div class="box info-box">
+                <div class="info">
+                    <div class="imgProfile">
+                        <a href="{{url_for('student_image_profile')}}" class="img" for="imgProfile">
+                            {% if current_user.image_profile %}
+                            <img src="{{ url_for('static', filename='img/student-image-profile/' + current_user.image_profile) }}" alt="User Profile Image">
+                            {% else %}
+                            <img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Default Profile Image">
+                            {% endif %}
+                            <i class='bx bxs-plus-circle'></i>
+                        </a>
+                        <h4 class="fullName">{{ student.full_name }}</h4>
+                    </div>
+                    <div class="information">
+                        <div class="collageInfo">
+                            {#<h4 class="fullNameInfo">{{ student.full_name }}</h4>#}
+                            <p>University Code: <span>{{ student.university_code }}</span></p>
+                            <p>National ID: <span>{{ student.national_id }}</span></p>
+                            <p>Acadmic Year: <span>{{ student.academic_year }}</span></p>
+                            <p>Section Number: <span>{{ student.section_number }}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- ------------- Students Grades ------------- -->
+            <div class="box grades">
+                <h2 class="title">Grades</h2>
+                {% if subject_selected %}
+                {% for subject in subject_selected %}
+                <div class="subject">
+                    <div class="grades-container">
+                        <h2 class="subjectName">{{subject.subject_name}}</h2>
+                        <div class="subject-grade">
+                            <p>Oral</p>
+                            {% if student_grades and subject.subject_name in student_grades %}
+                            <span>{{ student_grades[subject.subject_name].oral_grade }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="subject-grade">
+                            <p>Practical</p>
+                            {% if student_grades and subject.subject_name in student_grades %}
+                            <span>{{ student_grades[subject.subject_name].practical_grade }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="subject-grade">
+                            <p>Midterm</p>
+                            {% if student_grades and subject.subject_name in student_grades %}
+                            <span>{{ student_grades[subject.subject_name].midterm_grade }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="data-notfound">You did not record any subject.</p>
+                {% endif %}
+            </div>
+ 
+<!-- ------------- Students Grades ------------- -->
+            <div class="box attendance">
+                <h2 class="title">Attendance</h2>
+                {% if subject_selected %}
+                    {% for subject in subject_selected %}
+                    <div class="subject-attendance">
+                        <p class="subject-name">{{subject.subject_name}}</p>
+                        <div class="session-num">
+                            <div class="type">
+                                <p>Lecture</p>
+                                <span>{{ attendance_counts[subject.subject_name]['lecture'] }}</span>
+                            </div>
+                            <div class="type">
+                                <p>Section</p>
+                                <span>{{ attendance_counts[subject.subject_name]['section'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <p class="data-notfound">You did not record any subject.</p>
+                {% endif %}
+            </div>
+<!-- ------------- Students Grades ------------- -->
+            <div class="box tasks">
+                <h2 class="title">Quizzes</h2>
+                <div class="tasks-content">
+                {% if quizzes_by_subject %}
+                        {% for subject_name, quizzes in quizzes_by_subject.items() %}
+                            {% if quizzes %}
+                                {% for quiz in quizzes %}
+                                    {% if quiz.duration is not none %}
+                                        <a href="{{ url_for('start_end_quiz', id=quiz.id) }}" class="box-task" target="_blank">
+                                            {% set grade = student_quizzes_grades[student.full_name] | selectattr('quiz_id', 'equalto', quiz.id) | map(attribute='grade') | first %}
+                                            <p class="taskName">{{ quiz.quiz_name }}</p>
+                                            <p class="taskgrade">{% if grade is defined %}<span style="color: #5E3BEE; font-weight:400;">{{ grade }}</span>{% else %}&nbsp;{% endif %} / {{ quiz.points }}</p>
+                                            <p class="subjectNameTask">{{ subject_name }}</p>
+                                        </a>
+                                    {% elif quiz.duration is none %}
+                                        <a href="{{ url_for('start_end_quiz', id=quiz.id) }}" class="box-task" target="_blank">
+                                            {% set grade = student_quizzes_grades[student.full_name] | selectattr('quiz_id', 'equalto', quiz.id) | map(attribute='grade') | first %}
+                                            <p class="taskName">{{ quiz.quiz_name }}</p>
+                                            <p class="taskgrade">{% if grade is defined %}<span style="color: #5E3BEE; font-weight:400;">{{ grade }}</span>{% else %}&nbsp;{% endif %} / {{ quiz.points }}</p>
+                                            <p class="subjectNameTask">{{ subject_name }}</p>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url_for('start_end_quiz', id=quiz.id) }}" class="box-task" target="_blank">
+                                            {% set grade = student_quizzes_grades[student.full_name] | selectattr('quiz_id', 'equalto', quiz.id) | map(attribute='grade') | first %}
+                                            {% if grade is defined %}
+                                                <p class="taskName">{{ quiz.quiz_name }}</p>
+                                                <p class="taskgrade"><span style="color: #5E3BEE; font-weight:400;">{{ grade }}</span> / {{ quiz.points }}</p>
+                                                <p class="subjectNameTask">{{ subject_name }}</p>
+                                                {% else %}
+                                                <p class="taskName">{{ quiz.quiz_name }}</p>
+                                                <p class="taskgrade">{{ quiz.points }}/</p>
+                                                <p class="subjectNameTask">{{ subject_name }}</p>
+                                            {% endif %}
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                {% endif %}
+                {% if file_quizzes_by_subject %}
+                {% for subject_name, file_quizzes in file_quizzes_by_subject.items() %}
+                    {% if file_quizzes %}
+                            {% for quiz_file in file_quizzes %}
+                            {% set response = student_responses.get(quiz_file.id) %}
+                                {% if quiz_file.is_available %}
+                                    {% if not response %}
+                                        <a href="{{ url_for('start_end_quiz_file', id=quiz_file.id) }}" class="box-task" target="_blank">
+                                    {% else %}
+                                        <a href="{{ url_for('quiz_file_not_available', id=quiz_file.id) }}" class="box-task" target="_blank">
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{{ url_for('quiz_file_not_available', id=quiz_file.id) }}" class="box-task" target="_blank">
+                                {% endif %}
+                                    <p class="taskName">{{ quiz_file.quiz_name }}</p>
+                                    <p class="taskgrade"><span style="color: #5E3BEE; font-weight:400;">{% if response.degree is not none %} {{response.degree}} {% else %}{% endif %}</span> / {{ quiz_file.total_degree }}</p>
+                                    <p class="subjectNameTask">{{ subject_name }}</p>
+                                </a>
+                            {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+<!-- ------------------------------------ Students Profile Js ------------------------------------ -->
+    <script src="{{ url_for('static', filename='js/student-profile.js') }}"></script>
+  </body>
+</html>
+{% endblock %}

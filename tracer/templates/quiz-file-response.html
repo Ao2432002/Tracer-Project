@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/quiz-grade.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="quiz-info">
+            {% if quiz %}
+            <p class="total-point" hidden>{{quiz.total_degree}}</p>
+            <h2 class="quiz-name">{{ quiz.quiz_name }}</h2>
+            <h2 class="quiz-subject">{{ quiz.subject.subject_name }}</h2>
+            <h2 class="quiz-response">Responses({{ students_responses|count }})</h2>
+            <h2 class="non-response">Non-responses({{ students_non_responses|count }})</h2>
+    
+            {% else %}
+                <h2 class="quiz-name">Quiz Name</h2>
+                <h2 class="quiz-subject">Quiz Subject</h2>
+                <h2 class="quiz-response">Quiz Responses</h2>
+            {% endif %}
+        </div>
+        <div class="flash"></div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'success' in message %}
+                    <p style="color: green; margin-bottom: 20px;">{{ message }}</p>
+                {% else %}
+                    <p style="color: #FE5959; margin-bottom: 20px;">{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form action="" method="post" class="response-form">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Section</th>
+                        <th>Degree</th>
+                        <th>File</th>
+                    </tr>
+                </thead>
+                <tbody class="file">
+                    {% if students_responses %}
+                        {% for student in students_responses %}
+                            {% set response = student_response.get(student.university_code) %}
+                            <tr>
+                                <td>{{ student.full_name }}</td>
+                                <td>{{ student.section_number }}</td>
+                                <td>
+                                    <input type="text"  class="degree-input" id="file-degree" name="degree-{{ student.university_code }}"  value="{% if response.degree is not none %} {{response.degree}} {% else %}{% endif %}" placeholder="/{{quiz.total_degree}}">
+                                </td>
+                                <td>
+                                    {% if response %}
+                                        <a href="{{ url_for('download_student_file', filename=response.file) }}" class="download-file"><i class='bx bx-download'></i>Download</a>
+                                    {% else %}
+                                        No Response
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    {% if students_non_responses %}
+                        {% for student in students_non_responses %}
+                            <tr class="ungraded-student">
+                                <td>{{ student.full_name }}</td>
+                                <td>{{ student.section_number }}</td>
+                                <td>
+                                    Degree
+                                </td>
+                                <td>No Response</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            <div class="bottom">
+                <a href="{{url_for('delete_quiz_file_response', id=quiz.id)}}" class="delete-responses">Delete responses</a>
+                <button type="submit" class="submit degree">Submit</button>
+            </div>
+        </form>
+    </div>
+    
+</body>
+
+<!-------------------------------------- Java Script Code -------------------------------------->
+<script src="{{url_for('static', filename='js/quiz-file-responses.js')}}"></script>
+</body>
+
+</html>

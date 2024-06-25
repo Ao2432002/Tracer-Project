@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename=('css/quiz-instructor.css'))}}">
+    <title>New Quiz</title>
+</head>
+<body>
+    <div class="quiz-container">
+        
+        <form method="POST" id="add-question-form" enctype="multipart/form-data">
+            <div class="title-container">
+                <div class="title-timer">
+                    <h2 class="title">New Quiz</h2>
+                    <button class="timer" type="button"><i class='bx bx-timer'></i> Quiz Timer</button>
+                </div>
+                <input type="text" class="quiz-name" id="quiz-name" name="quizName" placeholder="Quiz Name" required>
+            </div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if 'success' in message %}
+                        <p style="color: green;">{{ message }}</p>
+                    {% else %}
+                        <p style="color: #FE5959;">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="flash"></div>
+            <div class="questions-container" id="questions-container">
+                <div class="question 1">
+                    <div class="quiz-file-container">
+                        <input type="file" class="quiz-file " id="quiz-file" name="quiz_file" required>
+                        <input type="text" class="total-point " id="total-point" name="total_point" placeholder="Point" required>
+                    </div>
+                    <!-- <div class="file-size">
+                        <div class="upload-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="size"><span class="from"></span> / <span class="to"></span></div>
+                    </div> -->
+                    <textarea name="quiz_description" id="quiz-description" placeholder="Description"></textarea>
+                </div>
+            </div>
+            <div class="btn">
+                <button type="submit">Save Form</button>
+            </div>
+
+            <div class="timer-options file hidden">
+                <div class="box-control">
+                    <div class="btns">
+                        <button class="close" type="button"><i class='bx bx-x'></i></button>
+                        <button class="up-down" type="button"><i class='bx bx-chevron-down'></i></button>
+                    </div>
+                    <p class="text"><i class='bx bx-timer'></i> QUIZ TIMER</p>
+                </div>
+                <div class="time-settings">
+                    <div class="start-end-date" style="margin-bottom: 10px;">
+                        <h5 class="option-label">Start/End dates</h5>
+                        <div class="start-dates" style="margin-bottom: 10px;">
+                            <p class="option-title">Quiz opens at</p>
+                            <input type="datetime-local" id="start-date" name="start_date">
+                        </div>
+                        <div class="end-dates">
+                            <p class="option-title">Quiz closed at</p>
+                            <input type="datetime-local" id="end-date" name="end_date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+    <script src="{{url_for('static', filename=('js/quiz-file-instructor.js'))}}"></script>
+</body>
+</html>

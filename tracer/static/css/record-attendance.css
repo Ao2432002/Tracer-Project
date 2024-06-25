@@ -1,0 +1,425 @@
+/* Start Variables */
+:root {
+  --primary-color: #24184E;
+  --secondary-color: #009CD4;
+  --white-color: #ffffff;
+  --box-color: #FAFAFA;
+  --title-color: #282938;
+  --paragraph-color: #A3AED0;
+  --backgroundBtn-color: #D8D8D8;
+  --record-background-color: #F1F5F9;
+  --button-hover: #40238B;
+  --danger-color: #FE5959;
+
+  --transition-3: 0.3s;
+  --transition-4: 0.4s;
+  --transition-5: 0.5s;
+}
+/* End Variables */
+
+/*Start Global Elements */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Technor", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../img/profile-background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+::selection{
+  background-color: #000;
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+background-color: var(--backgroundBtn-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--title-color); 
+  border-radius: 10px;
+}
+
+/*End Global Elements */
+
+/*---------------------- Start Record the Attendance ------------------------ */
+.container{
+  padding: 29px 40px;
+  width: 100%;
+  height: 100%;
+}
+
+.container .attendance{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.loader {
+  --cell-size: 143px;
+  --cell-spacing: 1px;
+  --cells: 3;
+  /* --total-size: calc(var(--cells) * (var(--cell-size) + 2 * var(--cell-spacing))); */
+  /* width: var(--total-size); */
+  /* height: var(--total-size); */
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+
+.cell {
+  /* flex: 0 0 var(--cell-size); */
+  /* margin: var(--cell-spacing); */
+  background-color: var(--cell-color);
+  box-sizing: border-box;
+  border-radius: 5px;
+  animation: 1.5s ripple ease infinite;
+}
+
+.cell.d-1 {
+  animation-delay: 100ms;
+}
+
+.cell.d-2 {
+  animation-delay: 200ms;
+}
+
+.cell.d-3 {
+  animation-delay: 300ms;
+}
+
+.cell.d-4 {
+  animation-delay: 400ms;
+}
+
+.cell:nth-child(1) {
+  --cell-color: var(--button-hover);
+  width: 100%;
+
+}
+
+.cell:nth-child(2) {
+  --cell-color: #3b2986;
+}
+
+.cell:nth-child(3) {
+  --cell-color: #4629aa;
+}
+
+.cell:nth-child(4) {
+  --cell-color: #552fd3;
+}
+
+.cell:nth-child(5) {
+  --cell-color: #633cef;
+}
+
+.cell:nth-child(6) {
+  --cell-color: #715afa;
+}
+
+.cell:nth-child(7) {
+  --cell-color: #837aff;
+}
+
+.cell:nth-child(8) {
+  --cell-color: #a0a1ff;
+}
+
+.cell:nth-child(9) {
+  --cell-color: #a0a1ff;
+}
+
+/*Animation*/
+@keyframes ripple {
+  0% {
+    background-color: transparent;
+  }
+
+  30% {
+    background-color: var(--cell-color);
+  }
+
+  60% {
+    background-color: transparent;
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.container .camera-video .video{
+  position: sticky;
+  top: 15px;
+}
+
+.container .camera-video .video .record{
+  width: 430px;
+  height: 430px;
+  background-color: var(--record-background-color);
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .camera-video .record img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.container .camera-video .camera-btns{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.container .camera-btns form,
+.container .camera-btns form{
+  width: 100%;
+}
+
+.container .camera-btns form button,
+.container .camera-btns form button{
+  width: 100%;
+  height: 50px;
+  border: 0;
+  background-color: #ffffff;
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: var(--transition-3);
+}
+
+.container .camera-btns form button:hover,
+.container .camera-btns form button:hover{
+  background-color: var(--button-hover);
+  color: #ffffff;
+}
+
+/*-------------------------- Start Student Record -------------------------*/
+.container-attend{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: 20px;
+}
+
+.attend-title{
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.container-attend h2{
+  color: var(--button-hover);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.container-attend h4{
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.container-attend h4 span{
+  color: var(--button-hover);
+}
+
+.container-attend .std-attendance{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+  width: 100%;
+  /* height: fit-content; */
+  align-content: flex-start;
+}
+
+.std-attendance .box{
+  /* width: 337px; */
+  height: fit-content;
+  background-color: var(--white-color);
+  display: flex;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.std-attendance .box .std-img-profile .img{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #F1F4F8;
+}
+
+.std-attendance .box .std-img-profile .img img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+.std-attendance .box .std-info{
+  margin-left: 15px;
+}
+
+.std-attendance .box .std-info .fullname,
+.std-attendance .std-info .detail{
+  font-size: clamp(14px, 3vw, 16px);
+  font-weight: 500;
+}
+
+.std-attendance .std-info .detail > span{
+  font-size: clamp(14px, 3vw, 16px);
+  font-weight: 300;
+}
+
+.submit-attendance{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.submit-btn{
+  width: 140px;
+  height: 50px;
+  border: 0;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  position: relative;
+  transition: var(--transition-3);
+  cursor: pointer;
+  margin-bottom: 21px;
+}
+
+.submit-btn> i{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 19px;
+  transition: var(--transition-3);
+}
+
+.submit-btn:hover{
+  opacity: .9;
+}
+
+.submit-btn:hover i{
+  margin-left: 4px;
+}
+/*-------------------------- End Student Record -------------------------*/
+
+@media (max-width:490px) {
+  .container .camera-btns .open,
+  .container .camera-btns .close{
+  width: 150px;
+  }
+
+
+  .submit-btn{
+    width: 100%;
+  }
+}
+@media (max-width:767px) {
+  .container{
+    padding: 15px 20px;
+  }
+
+  .container-attend{
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .std-attendance .box{
+    width: 100%;
+  }
+
+  .container .attendance{
+    flex-direction: column;
+  }
+
+  .container .camera-video .video .record{
+    width: 100%;
+    height: 350px;
+  }
+}
+@media (min-width:768px) and (max-width:915px) {
+  .container{
+    padding: 20px 30px;
+  }
+
+  .container-attend{
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .container .attendance{
+    flex-direction: column;
+  }
+
+  .container .camera-video .video .record{
+    width: 100%;
+    height: 450px;
+  }
+
+  .container .camera-btns .open,
+  .container .camera-btns .close{
+    width: 204px;
+    height: 50px;
+    border: 0;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition-3);
+  }
+}
+
+@media (max-width:380px) {
+  .container .camera-video .camera-btns{
+    flex-direction: column;
+  }
+
+  .container .std-attendance{
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+}
+/*---------------------- End Record the Attendance ------------------------ */

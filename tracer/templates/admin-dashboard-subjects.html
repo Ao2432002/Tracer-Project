@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin-dashboard-subjects.css')}}">
+    <title>Tracer</title>
+</head>
+<body>
+    <!-------------------------------------- Start SideBar -------------------------------------->
+    {% extends "dashboard-layout.html" %}
+    <!-------------------------------------- End SideBar -------------------------------------->
+
+    <!-------------------------------------- Start Section -------------------------------------->
+    {% block content  %} 
+    <section class="home-section">
+        <!-- Subject Registration Form -->
+        <label class="hamburger">
+            <input type="checkbox" class="menu">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+        <div class="container">
+            <div class="content">
+                <div class="top">
+                    <div class="search">
+                        <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" />
+                        <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit"><i class="bx bx-search"></i></button>
+                    </div>
+                    {% if register_status and register_status.status%}
+                        <a href="{{url_for('toggle_registration')}}" class="toggle-register close">Close registration</a>
+                    {% else %}
+                        <a href="{{url_for('toggle_registration')}}" class="toggle-register open">Open registration</a>
+                    {% endif %}
+                </div>
+                <div class="bottom">
+                    <form action="" class="subject-management" method="post">
+                        <div class="add-subject">
+                            <div class="subject-data">
+                                <input type="text" name="subject-code" class="subject code" placeholder="Code">
+                                <input type="text" name="subject-name" class="subject name" placeholder="Name">
+                            </div>
+                            <button type="submit" id="add-subject">Add Subject</button>
+                        </div>
+                    </form>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'success' in message %}
+                                <p style="color: green;">{{ message }}</p>
+                            {% else %}
+                                <p style="color: #FE5959;">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <div class="search-result"></div>
+                    {% if subjects %}
+                    {% for subject in subjects %}
+                    <div class="subject-box">
+                        <div class="subject-code">
+                            <p>{{subject.subject_code}}</p>
+                        </div>
+                        <div class="subject-name">
+                            <p>{{subject.subject_name}}</p>
+                        </div>
+                        <a href="{{url_for('delete_subject', subject_code=subject.subject_code)}}" class="delete-btn"> <i class='bx bx-x'></i> </a>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                        <p class="data-notfound">There are no subjects added</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-------------------------------------- End Section -------------------------------------->
+    <script src="{{url_for('static', filename='js/admin-dashboard-subjects.js')}}"></script>
+</body>
+</html>
+{% endblock %}

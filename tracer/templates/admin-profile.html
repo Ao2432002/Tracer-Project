@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin-profile.css')}}">
+    <title>Update Info</title>
+</head>
+<body>
+    <!-------------------------------------- Start SideBar -------------------------------------->
+    {% extends "dashboard-layout.html" %}
+    <!-------------------------------------- End SideBar -------------------------------------->
+
+    <!-------------------------------------- Start Section -------------------------------------->
+    {% block content %} 
+    <section class="home-section">
+        <label class="hamburger">
+            <input type="checkbox" class="menu">
+            <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+                <path class="line" d="M7 16 27 16"></path>
+            </svg>
+        </label>
+        <div class="container">
+            <div class="content">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if 'success' in message %}
+                            <p style="color: green;">{{ message }}</p>
+                        {% else %}
+                            <p style="color: #FE5959;">{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <div class="bottom">
+                    <form action="" id="update-info" method="post">
+                        <a href="{{url_for('admin_img_profile')}}" title="Click to change image" class="img-profile">
+                            {% if admin.image_profile %}
+                                <img src="{{ url_for('static', filename='img/admin-image-profile/' + current_user.image_profile) }}" alt="User Profile Image">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Default Profile Image">
+                            {% endif %}
+                        </a>
+                        <div class="input-field">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" name="full_name" value="{{admin.full_name}}" placeholder="www www www www" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="Uncode">Email</label>
+                            <input type="email" id="email" name="email" value="{{admin.email}}" placeholder="Email" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="ID">Password</label>
+                            <input type="password" id="password" name="password" value="{{admin.password}}" placeholder="Password" required>
+                        </div>
+                        <br>
+                        <div class="input-field">
+                            <button type="submit" class="update">Update info</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-------------------------------------- End Section -------------------------------------->
+    <script src="{{url_for('static', filename='js/dashboard-home.js')}}"></script>
+</body>
+</html>
+{% endblock %}

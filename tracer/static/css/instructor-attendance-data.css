@@ -1,0 +1,197 @@
+/* Start Variables */
+:root{
+  --primary-color: #24184E;
+  --white-color: #ffffff;
+  --box-color:#FAFAFA;
+  --title-color: #282938;
+  --paragraph-color: #A3AED0;
+  --backgroundBtn-color: #D8D8D8;
+  --record-background-color: #F2F2F2;
+
+  --transition-3: 0.3s;
+  --transition-4: 0.4s;
+}
+
+/* End Variables */
+
+/*Start Global Elements */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Technor", sans-serif;
+  box-sizing: border-box;
+}
+
+::selection{
+  background-color: #000;
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--backgroundBtn-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--title-color); 
+  border-radius: 10px;
+}
+
+body{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------------------------------- End Instructor Attendance -------------------------------- */
+.attendance-info-title{
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 60px;
+  position: relative;
+  color: var(--title-color);
+}
+
+.inbut-box{
+  display: flex;
+}
+
+.container .dropdown{
+  width: 500px;
+  position: relative;
+}
+
+.container .inbut-box:nth-of-type(2){
+  margin: 45px 0;
+}
+
+.container .inbut-box:not(:last-child) .dropdown:last-child{
+  margin-left: 50px;
+} 
+
+.dropdown .dropdown-capture{
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.container .dropdown .select{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  border: 1px solid var(--backgroundBtn-color);
+  border-radius: 5px;
+  padding: 0 15px;
+  background-color: var(--white-color);
+}
+
+.dropdown .select .selected{
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.dropdown .select .caret,
+.dropdown .select .selected{
+  pointer-events: none;
+}
+
+.menu-open{
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.caret-rotate{
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+}
+
+.dropdown .select .caret i{
+  font-size: 22px;
+  transition: 0.5s;
+}
+
+.container .dropdown .menu{
+  width: 100%;
+  background-color: var(--record-background-color);
+  padding: 10px 0;
+  display: none;
+  opacity: 0;
+  transition: 0.5s;
+  position: absolute;
+  left: 0;
+  z-index: 100;
+  border-radius: 10px;
+}
+
+.container .dropdown .menu > .option{
+  display: block;
+  width: 100%;
+  padding: 4px 15px ;
+  font-weight: 400;
+  font-size: 16px;
+  transition: var(--transition-3);
+}
+
+.container .dropdown .menu > .option:hover{
+  background-color: var(--primary-color);
+  color: white;
+}
+
+@media (max-width:480px) {
+  .attendance-info-title{
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width:767px) {
+  .container{
+    flex: 1;
+    padding: 10px 20px
+  }
+
+  .container .dropdown {
+    width: 100%;
+  }
+
+  .attendance-info-title{
+    font-size: 20px;
+    margin-bottom: 40px;
+  }
+}
+
+
+@media (max-width:1115px) {
+  .inbut-box{
+    display: block;
+  }
+
+  .container .inbut-box:nth-child(2){
+    margin: 0;
+  }
+
+  .container .inbut-box:not(:last-child) .dropdown:last-child{
+    margin-left: 0px;
+  }
+
+  .container .inbut-box:not(:last-child) .dropdown{
+    margin-bottom: 30px;
+  }
+
+  .attendance-info-title{
+    margin-bottom: 50px;
+  }
+}
+
+/* ---------------------------------- End Instructor Attendance -------------------------------- */

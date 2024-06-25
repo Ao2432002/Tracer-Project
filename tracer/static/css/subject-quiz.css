@@ -1,0 +1,120 @@
+:root {
+    --primary-color: #24184E;
+    --secondary-color: #009CD4;
+    --white-color: #fafafa;
+    --title-color: #282938;
+    --paragraph-color: #A3AED0;
+    --backgroundBtn-color: #D8D8D8;
+    --button-hover: #40238B;
+    --danger-color: #FE5959;
+    --color: #F1F5F9;
+
+    --shadow-color: hsla(0, 0%, 9%, .05);
+
+    --transition-3: 0.3s;
+    --transition-4: 0.4s;
+    --transition-5: 0.5s;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Technor', sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--backgroundBtn-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--title-color);
+    border-radius: 10px;
+}
+
+/* -------------------------------------- Start Content ------------------------------------------------ */
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.return-profile {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 400;
+    z-index: 999;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.return-profile:hover {
+    color: var(--button-hover);
+}
+
+.return-profile i {
+    font-size: 20px;
+    transition: var(--transition-3);
+}
+
+.return-profile:hover i {
+    transform: translateX(-3px);
+    color: var(--button-hover);
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.boxes {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.content .instructor-subjects-grade{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boxes a {
+    width: 100%;
+    height: 200px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+@media(max-width:420px) {
+    .boxes {
+        width: 100%;
+    }
+}

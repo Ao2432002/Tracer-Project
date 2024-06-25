@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Box Icon -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/subject-grades.css')}}">
+    <title>Tracer</title>
+</head>
+
+<body>
+    <div class="container">
+        <a class="return-profile" href="{{url_for('instructor_profile')}}"><i class='bx bx-chevron-left left previous'></i>Return Profile</a>
+        <div class="content">
+                <div class="boxes">
+                    {% if current_user.subjects %}
+                        {% for subject in current_user.subjects %}
+                                <div class="box">
+                                    <a href="{{ url_for('quiz_instructor', subject_code=subject.subject_code) }}">
+                                        <div>
+                                            <h4 class="subject-name">{{ subject.subject_name }}</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No subjects found</p>
+                    {% endif %}
+                </div>
+        </div>
+    </div>
+
+    <!-------------------------------------- Java Script Code -------------------------------------->
+    <script>
+        let title = document.querySelector('title')
+        setInterval(() => {
+            if (title.innerHTML !== 'Tracer') {
+                title.innerHTML = 'Tracer'
+            } else {
+                title.innerHTML = 'Subject Quiz'
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

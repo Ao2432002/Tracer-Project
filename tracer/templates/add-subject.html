@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <!-------------------------------------- BoxIcon -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/add-subject.css')}}">
+    <title>Add Subject</title>
+</head>
+<body>
+    <div class="container">
+
+        {% extends "nav-layout.html" %}
+        
+        {% block content  %}
+
+        <div class="left">
+            {#{% if current_user.role == 0 %}
+            <div class="link">
+                <i class='bx bx-chevron-left left previous'></i>
+                <a class="return-home" href="{{ url_for('student_profile') }}">Return Profile</a>
+            </div>
+            {% elif current_user.role == 1 %}
+            <div class="link">
+                <i class='bx bx-chevron-left left previous'></i>
+                <a class="return-home" href="{{ url_for('instructor_profile') }}">Return Profile</a>
+            </div>
+            {% endif %}#}
+            <form action="" class="add-subject-form" method="post">
+                {% if registration_status and registration_status.status %}
+                    <p class="note">Note: If you register for the course and then drop it later, no grades will be added to your record for this course during the semester.</p>
+                {% else %}
+                    <p class="note">Sorry: Registration has been closed by the admin.</p>
+                {% endif %}
+                <div class="input-select">
+                    <label for="subject">Choose Subject</label>
+                    <select id="subject" name="subject">
+                        {% if subjects %}
+                        {% for subject in subjects %}
+                        <option value="{{subject.subject_code}}">{{subject.subject_name}}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+                {% if registration_status and registration_status.status %}
+                    <button type="submit" class="add-subject">Add Subject</button>
+                {% endif %}
+
+                <div class="subjects">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'success' in message %}
+                                <p style="color: green; margin-bottom: 20px;">{{ message }}</p>
+                            {% else %}
+                                <p style="color: #FE5959; margin-bottom: 20px;">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    {% if subject_selected %}
+                        {% for subject in subject_selected %}
+                            {% if registration_status and registration_status.status %}
+                                <div class="subject-box">
+                                    <div class="subject-name">
+                                        <p>{{ subject.subject_name}}</p>
+                                    </div>
+                                    <a href="{{url_for('delete_subject', subject_code=subject.subject_code)}}" class="delete-btn"> <i class='bx bx-x'></i> </a>
+                                </div>
+                                {% else %}
+                                    <div class="subject-box not-allowed">
+                                        <div class="subject-name">
+                                            <p>{{ subject.subject_name}}</p>
+                                        </div>
+                                    </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p class="data-notfound">There are no subjects Registration</p>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+        {#<div class="rigth"></div>#}
+    </div>
+    <script src="{{url_for('static', filename='js/add-subject.js')}}"></script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+  <!-------------------------------------- Font Family -------------------------------------->
+  <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+  <!-------------------------------------- Box Icon -------------------------------------->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-------------------------------------- Style Css -------------------------------------->
+  <link rel="stylesheet" href="{{url_for('static', filename='css/attendance-archives.css')}}">
+  <title>Record the attendance</title>
+</head>
+<body>
+  <div class="container">
+    {% extends "nav-layout.html" %}
+        
+    {% block content  %}
+    {#<a class="return-profile" href="{{ url_for('instructor_profile') }}">
+        <i class='bx bx-chevron-left left previous'></i>Return Profile
+    </a>#}
+    <div class="filters">
+        <div class="filter">
+            <label for="subject">Subject</label>
+            <select id="subject" onchange="filterBoxes()">
+                <option value="all">All</option>
+                {% for subject in subjects %}
+                    <option value="{{ subject }}">{{ subject }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="filter">
+            <label for="session">Session</label>
+            <select id="session" onchange="filterBoxes()">
+                <option value="all">All</option>
+                {% for session_num in session_nums %}
+                    <option value="{{ session_num }}">{{ session_num }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="content">
+        <div class="boxes" id="boxes">
+          {% if attendance_data %}
+            {% for data in attendance_data %}
+                <div class="box">
+                    <a href="{{ url_for('student_attend', session_id=data.session.id) }}">
+                        <div class="info">
+                            <h4 class="subject-name">{{ data.session.subject.subject_name }}</h4>
+                            <h4 class="session-num">Session Number: ({{ data.session.session_num }})</h4>
+                            <h4 class="session-date">{{ data.session.date_posted.strftime('%Y-%m-%d (%I:%M:%S %p)') }}</h4>
+                            <h4 class="session-date">Number of attendees: ({{ data.students | count }})</h4>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+          {% else %}
+          <p>No session found</p>
+          {% endif %}
+        </div>
+    </div>
+</div>
+  <script src="{{url_for('static', filename='js/attendance-archives.js')}}"></script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracer</title>
+    <link rel="website icon" href="img/Logo.png">
+    <!-------------------------------------- BoxIcon -------------------------------------->
+    <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+    <!-------------------------------------- Font Family -------------------------------------->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-------------------------------------- Style Css -------------------------------------->
+    <link rel="stylesheet" href="css/sign-up-done.css">
+</head>
+
+<body>
+    <div class="container">
+        <p>"Welcome to our Tracer world. Our camera turns your missing moments into unforgettable art."</p>
+        <a href="/">Go to Home <i class='bx bx-chevron-right'></i></a>
+    </div>
+    <img src="img/done.png" alt="Sign in done" class="done">
+</body>
+    <script>
+
+        // ------------------------------------ Title Change -------------------------------------- //
+        let title = document.querySelector('title')
+        setInterval(() => {
+        if (title.innerHTML !== 'Tracer') {
+            title.innerHTML = 'Tracer'
+        }else{
+            title.innerHTML = 'Sign Up done'
+        }
+        }, 3000);
+
+    </script>
+</html>

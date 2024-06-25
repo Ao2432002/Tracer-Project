@@ -1,0 +1,351 @@
+:root {
+    --primary-color: #24184E;
+    --secondary-color: #009CD4;
+    --white-color: #ffffff;
+    --box-color: #FAFAFA;
+    --title-color: #282938;
+    --paragraph-color: #A3AED0;
+    --backgroundBtn-color: #D8D8D8;
+    --record-background-color: #F1F5F9;
+    --button-hover: #40238B;
+    --danger-color: #FE5959;
+
+    --transition-3: 0.3s;
+    --transition-4: 0.4s;
+    --transition-5: 0.5s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Technor", sans-serif;
+    box-sizing: border-box;
+    color: var(--title-color);
+}
+
+body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../img/profile-background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+::selection {
+    background-color: black;
+    color: var(--white-color);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--backgroundBtn-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--title-color);
+    border-radius: 10px;
+}
+
+.container {
+    padding: 60px;
+    padding-top: 90px;
+    height: 100vh;
+    width: 100%;
+}
+
+.container .large-screen{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    height: 60px;
+    padding: 0 30px;
+    min-width: 240px;
+  }
+  
+  .container .large-screen img{
+    width: 40px;
+  }
+  
+  .container .large-screen .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .container .large-screen .large {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--primary-color);
+    font-weight: 400;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  
+  .container .large-screen .large:hover {
+    background: #f3f3f3;
+  }
+  
+  .container .large-screen .large i{
+    font-size: 20px;
+  }
+  .menu {
+    position: fixed;
+  }
+  
+  .burger {
+    z-index: 99999;
+    top: 40px;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    border: 0;
+    border-radius: 10px;
+    padding: 0;
+    cursor: pointer;
+    background-color: #ffffff;
+    background-image: url("../img/icon/menu_line.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: none;
+  }
+  
+  body.open .burger {
+    background-color: transparent;
+    background-image: url("../img/icon/close_line.svg");
+  }
+  
+  .background {
+    position: fixed;
+    z-index: 9999;
+    top: 90px;
+    left: 44px;
+    aspect-ratio: 1/1;
+    translate: -50% -50%;
+    height: 88px;
+    background: rgb(0 0 0 / 0%);
+    border-radius: 50%;
+    transition: 0.6s;
+  }
+  
+  body.open .background {
+    height: 300vmax;
+    background: rgb(0 0 0 / 80%);
+  }
+  
+  body.open .menu {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .menu {
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.05s;
+  }
+  
+  .menu nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 100px;
+  }
+  
+  .menu a {
+    position: relative;
+    color: #f9f9f9;
+    font-size: 32px;
+    padding: 20px 0 20px 20px;
+    text-decoration: none;
+    opacity: 0;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  
+  body .menu nav:hover>a {
+    opacity: 0.25;
+  }
+  
+  body .menu nav>a:hover {
+    opacity: 1;
+    translate: 8px 0;
+  }
+  
+  .menu a::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -26px;
+    translate: 0 -50%;
+    margin-top: 2px;
+    width: 10px;
+    height: 10px;
+    border-top: 3px solid #ffffff;
+    border-right: 3px solid #ffffff;
+    opacity: 0;
+    rotate: 45deg;
+    transition: 0.3s;
+  }
+  
+  .menu a:hover::after {
+    opacity: 1;
+  }
+  
+  @keyframes appear {
+    0% {
+      opacity: 0;
+      translate: -30px 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  body.open .menu a {
+    opacity: 1;
+    animation: appear 0.25s backwards;
+  }
+
+.form-container {
+    padding: 50px 20px;
+    height: fit-content;
+    width: 100%;
+    border-radius: 10px;
+    z-index: 9999;
+    background: #ffffff;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#profileForm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.choose,
+input {
+    width: 100%;
+    padding: 10px 30px;
+    font-size: 16px;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: var(--transition-3);
+    text-align: center;
+}
+
+button[type="submit"] {
+    padding: 10px 60px;
+}
+
+.choose:hover,
+input:hover {
+    background-color: var(--button-hover);
+}
+
+#preview {
+    margin-top: 10px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#hideForm {
+    position: absolute;
+    top: 10px;
+    left: -12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+#hideForm i {
+    color: var(--primary-color);
+    font-size: 30px;
+    transition: var(--transition-3);
+}
+
+#hideForm i:hover {
+    color: var(--danger-color);
+}
+
+@media (max-width:815px) {
+    .container .large-screen .link {
+      display: none;
+    }
+    
+    .container .large-screen .large {
+      display: none;
+    }
+  
+    .burger {
+      display: grid;
+    }
+  }
+
+@media (max-width:650px) {
+
+  .croppie-container .cr-boundary{
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  .buttons{
+    
+    flex-direction: column;
+  }
+
+  .choose,
+  input {
+      padding: 10px 10px;
+      font-size: 14px;
+  }
+}

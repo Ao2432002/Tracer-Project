@@ -1,0 +1,101 @@
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/nav-layout.css')}}">
+</head>
+
+{% if current_user.role == 0 %}
+        <nav class="large-screen">
+            <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="">
+            <div class="link">
+                <a class="large" href="{{url_for('student_profile')}}" style="animation-delay: 0.2s">Profile</a>
+                <a class="large" href="{{url_for('subject_registration')}}" style="animation-delay: 0.2s">Subject Registration</a>
+                <a class="large" href="{{url_for('request_excuse')}}" style="animation-delay: 0.3s">Request excuse</a>
+                <a class="large" href="{{url_for('excuses')}}" style="animation-delay: 0.3s">Excuses</a>
+            </div>
+            <a class="large" href="{{url_for('student_logout')}}" style="animation-delay: 0.4s">Log out <i class='bx bx-log-in-circle'></i></a>
+            
+            <button class="burger" onclick="toggleMenu()"></button>
+            <div class="background"></div>
+            <div class="menu">
+                <nav>
+                    <a href="{{url_for('student_profile')}}" style="animation-delay: 0.2s">Profile</a>
+                    <a href="{{url_for('subject_registration')}}" style="animation-delay: 0.2s">Subject Registration</a>
+                    <a href="{{url_for('request_excuse')}}" style="animation-delay: 0.3s">Request excuse</a>
+                    <a href="{{url_for('excuses')}}" style="animation-delay: 0.3s">Excuses</a>
+                    <a href="{{url_for('student_logout')}}" style="animation-delay: 0.4s">Log out</a>
+                </nav>
+            </div>
+        </nav>
+        {% elif current_user.role == 1 %}
+        <nav class="large-screen">
+            <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="">
+            <div class="link">
+                <a class="large" href="{{url_for('instructor_profile')}}" style="animation-delay: 0.2s">Profile</a>
+                <a class="large" href="{{url_for('subject_registration')}}">Subject Registration</a>
+                <div class="dropdown">
+                    <button onclick="toggleDropdown('attendanceDropdown')" class="dropbtn">Attendance <i class='bx bx-chevron-down'></i></button>
+                    <div id="attendanceDropdown" class="dropdown-content">
+                        <a href="{{url_for('attend_info')}}">Take Attendance</a>
+                        <a href="{{url_for('attendance_archives')}}">Attendance Archives</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button onclick="toggleDropdown('excuseDropdown')" class="dropbtn">Excuse <i class='bx bx-chevron-down'></i></button>
+                    <div id="excuseDropdown" class="dropdown-content">
+                        <a href="{{url_for('request_excuse')}}">Request Excuse</a>
+                        <a href="{{url_for('excuses')}}">Excuses</a>
+                    </div>
+                </div>
+                
+                <a class="large" href="{{url_for('subject_choose_quiz')}}">Add Quiz</a>
+                <a class="large" href="{{url_for('subject_grade')}}">Grades</a>
+            
+                
+            </div>
+            <a class="large" href="{{url_for('instructor_logout')}}">Log out <i class='bx bx-log-in-circle'></i></a>
+            
+            <button class="burger" onclick="toggleMenu()"></button>
+            <div class="background"></div>
+            <div class="menu">
+                <nav>
+                    <a href="{{url_for('instructor_profile')}}">Profile</a>
+                    <a href="{{url_for('subject_registration')}}">Subject Registration</a>
+                    <a href="{{url_for('attend_info')}}">Take Attendance</a>
+                    <a href="{{url_for('attendance_archives')}}">Attendance Archives</a>
+                    <a href="{{url_for('subject_choose_quiz')}}">Add Quiz</a>
+                    <a href="{{url_for('subject_grade')}}">Grades</a>
+                    <a href="{{url_for('request_excuse')}}">Request Excuse</a>
+                    <a href="{{url_for('excuses')}}">Excuses</a>
+                    <a href="{{url_for('instructor_logout')}}">Log out</a>
+                </nav>
+            </div>
+        </nav>
+        {% endif %}
+<script type="text/javascript">
+    const toggleMenu = () => document.body.classList.toggle("open");
+
+    function toggleDropdown(dropdownId) {
+        document.getElementById(dropdownId).classList.toggle("show");
+    }
+    
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+    
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+
+
+
+{% block content %}
+
+{% endblock %}
+<!-------------------------------------- End SideBar -------------------------------------->

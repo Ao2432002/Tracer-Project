@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="website icon" href="{{url_for('static', filename='img/Logo.png')}}">
+  <!-------------------------------------- Font Family -------------------------------------->
+  <link href="https://api.fontshare.com/v2/css?f[]=technor@300,600,200,400,700,500,900&display=swap" rel="stylesheet">
+  <!-------------------------------------- Box Icon -------------------------------------->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-------------------------------------- Style Css -------------------------------------->
+  <link rel="stylesheet" href="{{url_for('static', filename='css/student-attend.css')}}">
+  <title>Record the attendance</title>
+</head>
+<body>
+  <div class="container">
+    {% extends "nav-layout.html" %}
+        
+    {% block content  %}
+    <div class="attendance">
+        <div class="header">
+            {#<a class="return-home" href="{{url_for('instructor_profile')}}"><i class='bx bx-chevron-left left previous'></i>Return Dashboard</a>#}
+            <h4>{{ session.subject.subject_name }}</h4>
+            <h4>{{ session.session_type }}</h4>
+            <h4> Session Number: {{ session.session_num }}</h4>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if 'success' in message %}
+                    <p style="color: green; margin-bottom: 20px;">{{ message }}</p>
+                {% else %}
+                    <p style="color: #FE5959; margin-bottom: 20px;">{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="std-attendance" id="student-attendance-list">
+            <div class="attendance-header">Number of students attending ( <span class="count">{{students_attendees | count}}</span> )</div>
+            <div class="content">
+            {% if students_attendees %}
+            {% for student in students_attendees %}
+                <div class="student box">
+                    <div class="std-img-profile">
+                        <div class="img">
+                            {% if student.image_profile %}
+                                <img class="user-image" src="{{ url_for('static', filename='img/student-image-profile/' + student.image_profile) }}" alt="User Profile Image">
+                            {% else %}
+                                <img class="user-image" src="{{url_for('static', filename='img/default-user.jpg')}}">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="std-info">
+                        <p class="fullname">{{ student.full_name }}</p>
+                        <p class="uncode detail">Uni.code: <span>{{ student.university_code }}</span></p>
+                        <p class="ac-year detail">Ac.year: <span>{{ student.academic_year }}</span></p>
+                        <p class="section-number detail">Section: <span>{{ student.section_number }}</span></p>
+                        <a href="{{url_for('delete_student_attendance', session_id=session.id, university_code=student.university_code)}}" class="delete-std">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+                <p>There are no students whose attendance has been taken</p>
+            {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="std-absence" id="student-absence-list">
+            <div class="absence-header">Number of absent students ( <span class="count">{{students_absences | count}}</span> )</div>
+            <div class="content">
+                {% if students_absences %}
+                {% for student in students_absences %}
+                    <div class="student box">
+                        <div class="std-img-profile">
+                            <div class="img">
+                                {% if student.image_profile %}
+                                    <img class="user-image" src="{{ url_for('static', filename='img/student-image-profile/' + student.image_profile) }}" alt="User Profile Image">
+                                {% else %}
+                                    <img class="user-image" src="{{url_for('static', filename='img/default-user.jpg')}}">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="std-info">
+                            <p class="fullname">{{ student.full_name }}</p>
+                            <p class="uncode detail">Uni.code: <span>{{ student.university_code }}</span></p>
+                            <p class="ac-year detail">Ac.year: <span>{{ student.academic_year }}</span></p>
+                            <p class="section-number detail">Section: <span>{{ student.section_number }}</span></p>
+                            <a href="{{url_for('add_student_attendance', session_id=session.id, university_code=student.university_code)}}" class="add-std">Add</a>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+  </div>
+  <script src="{{url_for('static', filename='js/student-attend.js')}}"></script>
+</body>
+</html>
+
+{% endblock %}
